@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>North Pole Intelligence Service</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
@@ -20,27 +15,30 @@
     --dark: #02070c;
     --paper: #eee5ca;
     --red: #9b2020;
+    --folder: #957b4e;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: "Courier New", monospace;
-
-    background:
-        radial-gradient(
-            circle at 50% 20%,
-            #1b3544,
-            #02070c 72%
-        );
-
-    color: #17251c;
     overflow-x: hidden;
+    font-family: "Courier New", Courier, monospace;
+    background:
+        radial-gradient(circle at 50% 20%, #1b3544, #02070c 72%);
+    color: #17251c;
 }
 
 button,
 input {
     font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
 }
 
 .screen {
@@ -52,3786 +50,2102 @@ input {
     display: flex;
 }
 
-
 /* =====================================
    SNOW
 ===================================== */
 
 .snow {
-
     position: fixed;
     top: -20px;
-
-    color: white;
-
-    pointer-events: none;
-
     z-index: 2;
-
-    animation:
-        fall linear infinite;
+    color: white;
+    pointer-events: none;
+    user-select: none;
+    animation: snowfall linear infinite;
 }
 
-@keyframes fall {
-
+@keyframes snowfall {
     to {
-
-        transform:
-            translateY(110vh)
-            rotate(360deg);
-
+        transform: translateY(110vh) rotate(360deg);
     }
-
 }
-
 
 /* =====================================
-   INTRO SCREEN
+   INTRODUCTION
 ===================================== */
 
 #landing {
-
     align-items: center;
-
     justify-content: center;
-
     padding: 55px;
-
 }
 
 .folder {
-
     position: relative;
-
     width: 880px;
-
-    background:
-        #957b4e;
-
     padding: 24px;
-
-    box-shadow:
-        0 35px 80px #000a;
-
-    transform:
-        rotate(-0.5deg);
-
+    background: var(--folder);
+    box-shadow: 0 35px 80px rgba(0, 0, 0, .65);
+    transform: rotate(-.5deg);
 }
 
-.tab {
-
+.folder-tab {
     position: absolute;
-
     top: -38px;
-
     left: 0;
-
     width: 280px;
-
-    background:
-        #957b4e;
-
-    padding:
-        13px 24px;
-
-    font-size:
-        12px;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        2px;
-
+    padding: 13px 24px;
+    background: var(--folder);
+    border-radius: 6px 6px 0 0;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .paper {
-
     position: relative;
-
-    background:
-        linear-gradient(
-            #f7f0db,
-            #e7ddbf
-        );
-
-    padding:
-        40px 62px;
-
-    box-shadow:
-        0 10px 35px #0006;
-
+    padding: 40px 62px;
+    background: linear-gradient(#f7f0db, #e7ddbf);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, .4);
 }
 
-.paper:before {
-
+.paper::before,
+.evidence-document::before {
     content: "";
-
     position: absolute;
-
     inset: 10px;
-
-    border:
-        1px solid #463d2a33;
-
-    pointer-events:
-        none;
-
+    border: 1px solid rgba(70, 61, 42, .2);
+    pointer-events: none;
 }
 
 .santa {
-
-    text-align:
-        center;
-
-    font-size:
-        44px;
-
+    text-align: center;
+    font-size: 44px;
 }
 
 .agency {
-
-    text-align:
-        center;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        5px;
-
-    color:
-        #183b2a;
-
+    text-align: center;
+    color: #183b2a;
+    font-weight: bold;
+    letter-spacing: 5px;
 }
 
 .paper h1 {
-
-    text-align:
-        center;
-
-    font-family:
-        Georgia, serif;
-
-    margin:
-        8px 0 2px;
-
+    margin: 8px 0 2px;
+    text-align: center;
+    font-family: Georgia, serif;
 }
 
 .division {
-
-    text-align:
-        center;
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        4px;
-
-    color:
-        #58645c;
-
+    text-align: center;
+    color: #58645c;
+    font-size: 11px;
+    letter-spacing: 4px;
 }
 
-.stamp {
-
-    position:
-        absolute;
-
-    right:
-        35px;
-
-    top:
-        115px;
-
-    border:
-        5px solid var(--red);
-
-    color:
-        var(--red);
-
-    padding:
-        8px 14px;
-
-    font:
-        bold 22px Arial;
-
-    letter-spacing:
-        3px;
-
-    transform:
-        rotate(10deg);
-
-    opacity:
-        .78;
-
+.classified-stamp {
+    position: absolute;
+    top: 115px;
+    right: 35px;
+    padding: 8px 14px;
+    border: 5px solid var(--red);
+    color: var(--red);
+    font: bold 22px Arial, sans-serif;
+    letter-spacing: 3px;
+    opacity: .78;
+    transform: rotate(10deg);
 }
 
 .case-info {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    border-block:
-        2px solid #1a3224;
-
-    margin:
-        22px 0;
-
-    padding:
-        12px;
-
-    font-size:
-        12px;
-
-    line-height:
-        1.8;
-
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 22px 0;
+    padding: 12px;
+    border-top: 2px solid #1a3224;
+    border-bottom: 2px solid #1a3224;
+    font-size: 12px;
+    line-height: 1.8;
 }
 
 .report {
-
-    font-family:
-        Georgia, serif;
-
-    line-height:
-        1.65;
-
+    font-family: Georgia, serif;
+    line-height: 1.65;
 }
 
 .mission {
-
-    display:
-        flex;
-
-    justify-content:
-        space-around;
-
-    text-align:
-        center;
-
-    border-block:
-        1px dashed #887e64;
-
-    margin:
-        23px 0;
-
-    padding:
-        16px;
-
-    font-size:
-        12px;
-
-    font-weight:
-        bold;
-
+    display: flex;
+    justify-content: space-around;
+    margin: 23px 0;
+    padding: 16px;
+    border-top: 1px dashed #887e64;
+    border-bottom: 1px dashed #887e64;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.mission b {
-
-    display:
-        block;
-
-    font-size:
-        25px;
-
-    margin-bottom:
-        5px;
-
+.mission-icon {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 25px;
 }
 
 .warning {
-
-    text-align:
-        center;
-
-    color:
-        #7d1d1d;
-
-    font-weight:
-        bold;
-
-}
-
-.center {
+    color: #7d1d1d;
     text-align: center;
+    font-weight: bold;
 }
-
 
 /* =====================================
    BUTTONS
 ===================================== */
 
-.red-btn,
-.green-btn {
-
-    border:
-        0;
-
-    color:
-        white;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        2px;
-
-    padding:
-        15px 34px;
-
-    cursor:
-        pointer;
-
+.center {
+    text-align: center;
 }
 
-.red-btn {
-
-    background:
-        #851f1f;
-
-    box-shadow:
-        0 5px #501010;
-
+.red-button,
+.green-button {
+    padding: 15px 34px;
+    border: 0;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
-.green-btn {
-
-    background:
-        #145b2d;
-
-    border:
-        1px solid #6fd78b;
-
+.red-button {
+    background: #851f1f;
+    box-shadow: 0 5px #501010;
 }
 
-.red-btn:hover {
-
-    background:
-        #a72a2a;
-
+.red-button:hover {
+    background: #a72a2a;
 }
 
-.green-btn:hover:not(:disabled) {
-
-    background:
-        #19743a;
-
+.green-button {
+    background: #145b2d;
+    border: 1px solid #6fd78b;
 }
 
+.green-button:hover:not(:disabled) {
+    background: #19743a;
+}
+
+.full-button {
+    width: 100%;
+}
 
 /* =====================================
-   SECURITY
+   SECURITY AND ACCESS
 ===================================== */
 
 #security,
-#granted {
-
-    position:
-        fixed;
-
-    inset:
-        0;
-
-    z-index:
-        20;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
+#accessGranted {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
     background:
-        radial-gradient(
-            circle,
-            #10251b,
-            #020706 70%
-        );
-
-    color:
-        var(--green);
-
+        radial-gradient(circle, #10251b, #020706 70%);
+    color: var(--green);
 }
 
 .terminal-box {
-
-    width:
-        650px;
-
-    border:
-        1px solid #317a4a;
-
-    background:
-        #000f07eb;
-
-    padding:
-        44px 54px;
-
-    box-shadow:
-        0 0 40px #37ff7817;
-
+    width: 650px;
+    padding: 44px 54px;
+    border: 1px solid #317a4a;
+    background: rgba(0, 15, 7, .93);
+    box-shadow: 0 0 40px rgba(55, 255, 120, .1);
 }
 
 .terminal-box h2 {
-
-    text-align:
-        center;
-
-    letter-spacing:
-        4px;
-
+    text-align: center;
+    letter-spacing: 4px;
 }
 
 .terminal-box p {
-
-    color:
-        #b7d2bd;
-
-    line-height:
-        1.6;
-
+    color: #b7d2bd;
+    line-height: 1.6;
 }
 
 .field-label {
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        2px;
-
-    margin:
-        18px 0 7px;
-
+    margin: 18px 0 7px;
+    font-size: 11px;
+    letter-spacing: 2px;
 }
 
 .terminal-input {
-
-    width:
-        100%;
-
-    background:
-        #020a05;
-
-    border:
-        1px solid #317a4a;
-
-    padding:
-        14px;
-
-    color:
-        #80ff9f;
-
-    outline:
-        none;
-
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #317a4a;
+    outline: none;
+    background: #020a05;
+    color: #80ff9f;
 }
 
-.green-btn.full {
-
-    width:
-        100%;
-
-    margin-top:
-        22px;
-
+.terminal-input:focus {
+    border-color: #78ff9c;
+    box-shadow: 0 0 12px rgba(120, 255, 156, .15);
 }
 
 .message {
-
-    min-height:
-        24px;
-
-    text-align:
-        center;
-
-    margin-top:
-        16px;
-
-    font-size:
-        12px;
-
+    min-height: 24px;
+    margin-top: 16px;
+    text-align: center;
+    font-size: 12px;
 }
 
 .blink {
-
-    animation:
-        blink .8s step-end infinite;
-
+    animation: blink .8s step-end infinite;
 }
 
 @keyframes blink {
-
     50% {
         opacity: 0;
     }
-
 }
-
 
 /* =====================================
    DASHBOARD
 ===================================== */
 
 #dashboard {
-
-    display:
-        none;
-
-    min-height:
-        100vh;
-
-    padding:
-        45px;
-
-    color:
-        #d9eadf;
-
+    display: none;
+    min-height: 100vh;
+    padding: 45px;
+    color: #d9eadf;
 }
 
 .dashboard-shell {
-
-    width:
-        min(1180px, 96vw);
-
-    margin:
-        auto;
-
-    border:
-        1px solid #315a42;
-
-    background:
-        #06110cef;
-
-    box-shadow:
-        0 30px 80px #000b;
-
+    width: min(1180px, 96vw);
+    margin: auto;
+    border: 1px solid #315a42;
+    background: rgba(6, 17, 12, .95);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
 }
 
-.dash-header {
-
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
-    align-items:
-        center;
-
-    padding:
-        22px 28px;
-
-    border-bottom:
-        1px solid #315a42;
-
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 28px;
+    border-bottom: 1px solid #315a42;
 }
 
-.dash-header h1 {
-
-    margin:
-        0;
-
-    color:
-        var(--green);
-
-    letter-spacing:
-        3px;
-
-    font-size:
-        25px;
-
+.dashboard-header h1 {
+    margin: 0;
+    color: var(--green);
+    font-size: 25px;
+    letter-spacing: 3px;
 }
 
-.agent-meta {
-
-    text-align:
-        right;
-
-    font-size:
-        11px;
-
-    line-height:
-        1.6;
-
-    color:
-        #88b697;
-
+.dashboard-agent {
+    color: #88b697;
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.6;
 }
 
-.dash-main {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr 370px;
-
-    gap:
-        28px;
-
-    padding:
-        28px;
-
+.lock-button {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border: 1px solid #365b43;
+    background: transparent;
+    color: #8eba9a;
 }
 
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 1fr 370px;
+    gap: 28px;
+    padding: 28px;
+}
 
 /* =====================================
    PROGRESS
 ===================================== */
 
-.progress-wrap {
-
-    margin-bottom:
-        24px;
-
+.progress-container {
+    margin-bottom: 24px;
 }
 
-.progress-label {
-
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        2px;
-
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 2px;
 }
 
-.progress-bar {
-
-    height:
-        12px;
-
-    border:
-        1px solid #315a42;
-
-    margin-top:
-        8px;
-
-    background:
-        #020805;
-
+.progress-background {
+    height: 12px;
+    margin-top: 8px;
+    border: 1px solid #315a42;
+    background: #020805;
 }
 
 .progress-fill {
-
-    height:
-        100%;
-
-    width:
-        0;
-
-    background:
-        #3ac869;
-
-    transition:
-        .4s;
-
+    width: 0;
+    height: 100%;
+    background: #3ac869;
+    transition: width .4s;
 }
-
 
 /* =====================================
    ENVELOPES
 ===================================== */
 
 .envelopes {
-
-    display:
-        grid;
-
-    gap:
-        13px;
-
+    display: grid;
+    gap: 13px;
 }
 
 .envelope {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        75px 1fr 190px;
-
-    align-items:
-        center;
-
-    gap:
-        16px;
-
-    border:
-        1px solid #315a42;
-
-    background:
-        #0a1a11;
-
-    padding:
-        16px;
-
+    display: grid;
+    grid-template-columns: 75px 1fr 190px;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid #315a42;
+    background: #0a1a11;
 }
 
-.env-no {
-
-    font-size:
-        25px;
-
-    color:
-        #83ffa5;
-
+.envelope-number {
+    color: #83ffa5;
+    font-size: 25px;
 }
 
-.env-title {
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        2px;
-
+.envelope-title {
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
-.env-type,
-.env-status {
-
-    font-size:
-        10px;
-
-    color:
-        #76a989;
-
-    margin-top:
-        5px;
-
+.envelope-type,
+.envelope-status {
+    margin-top: 5px;
+    color: #76a989;
+    font-size: 10px;
 }
 
-.env-btn {
-
-    border:
-        1px solid #477c58;
-
-    background:
-        #12321f;
-
-    color:
-        #baffc9;
-
-    padding:
-        11px;
-
-    cursor:
-        pointer;
-
-    font-size:
-        10px;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        1px;
-
+.envelope-button {
+    padding: 11px;
+    border: 1px solid #477c58;
+    background: #12321f;
+    color: #baffc9;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
-.env-btn:disabled {
-
-    opacity:
-        .45;
-
-    cursor:
-        not-allowed;
-
+.envelope-button:hover:not(:disabled) {
+    background: #1a4a2c;
 }
 
-.env-btn:hover:not(:disabled) {
-
-    background:
-        #1a4a2c;
-
+.envelope-button:disabled {
+    opacity: .45;
 }
-
-.identification-required {
-
-    color:
-        #ff7d7d;
-
-}
-
 
 /* =====================================
-   PHOTO PANEL
+   IDENTIFICATION PHOTO
 ===================================== */
 
 .photo-panel {
-
-    border:
-        1px solid #315a42;
-
-    padding:
-        14px;
-
-    background:
-        #020805;
-
+    padding: 14px;
+    border: 1px solid #315a42;
+    background: #020805;
 }
 
 .photo-title {
-
-    text-align:
-        center;
-
-    color:
-        #83ffa5;
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        2px;
-
-    margin-bottom:
-        12px;
-
+    margin-bottom: 12px;
+    color: #83ffa5;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
 }
 
 .photo-square {
-
-    aspect-ratio:
-        1 / 1;
-
-    width:
-        100%;
-
-    overflow:
-        hidden;
-
-    border:
-        2px solid #7d1f1f;
-
-    position:
-        relative;
-
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #7d1f1f;
 }
 
 .agent-photo {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    object-fit:
-        cover;
-
-    display:
-        none;
-
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .photo-request {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    justify-content:
-        center;
-
-    align-items:
-        center;
-
-    text-align:
-        center;
-
-    padding:
-        24px;
-
-    background:
-        #8c1515;
-
-    color:
-        white;
-
-    animation:
-        alert 1.2s ease-in-out infinite;
-
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #8c1515;
+    color: white;
+    text-align: center;
+    animation: photoAlert 1.2s ease-in-out infinite;
 }
 
 .photo-request h3 {
-
-    font-size:
-        20px;
-
-    letter-spacing:
-        2px;
-
-    margin:
-        0 0 18px;
-
+    margin: 0 0 18px;
+    font-size: 20px;
+    letter-spacing: 2px;
 }
 
 .photo-request p {
-
-    font-family:
-        Arial, sans-serif;
-
-    line-height:
-        1.55;
-
-    margin:
-        5px 0;
-
+    margin: 5px 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.55;
 }
 
-.email {
-
-    font-weight:
-        bold;
-
-    word-break:
-        break-all;
-
+.email-address {
+    font-weight: bold;
+    word-break: break-all;
 }
 
-.guidelines {
-
-    text-align:
-        left;
-
-    margin-top:
-        12px;
-
-    font-size:
-        13px;
-
-}
-
-@keyframes alert {
-
-    50% {
-
-        background:
-            #c42525;
-
-        box-shadow:
-            inset 0 0 35px #fff3,
-            0 0 25px #ff393980;
-
-    }
-
+.photo-guidelines {
+    margin-top: 12px;
+    text-align: left;
+    font-size: 13px;
 }
 
 .photo-note {
-
-    text-align:
-        center;
-
-    color:
-        #60896e;
-
-    font-size:
-        9px;
-
-    line-height:
-        1.5;
-
-    margin-top:
-        10px;
-
+    margin-top: 10px;
+    color: #60896e;
+    text-align: center;
+    font-size: 9px;
+    line-height: 1.5;
 }
 
-.logout {
-
-    background:
-        none;
-
-    border:
-        1px solid #365b43;
-
-    color:
-        #8eba9a;
-
-    padding:
-        8px 12px;
-
-    cursor:
-        pointer;
-
-    margin-top:
-        12px;
-
+@keyframes photoAlert {
+    50% {
+        background: #c42525;
+        box-shadow:
+            inset 0 0 35px rgba(255, 255, 255, .2),
+            0 0 25px rgba(255, 57, 57, .5);
+    }
 }
-
 
 /* =====================================
-   EVIDENCE 001
+   EVIDENCE SCREENS
 ===================================== */
 
-#evidence001 {
-
-    position:
-        fixed;
-
-    inset:
-        0;
-
-    z-index:
-        30;
-
-    align-items:
-        flex-start;
-
-    justify-content:
-        center;
-
-    overflow:
-        auto;
-
-    padding:
-        55px;
-
+#evidence001,
+#evidence002 {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: auto;
+    padding: 55px;
     background:
-        radial-gradient(
-            circle,
-            #1a303c,
-            #02070c 72%
-        );
-
+        radial-gradient(circle, #1a303c, #02070c 72%);
 }
 
-.evidence-doc {
-
-    position:
-        relative;
-
-    width:
-        900px;
-
-    background:
-        linear-gradient(
-            #f7f0db,
-            #e4d9b9
-        );
-
-    padding:
-        42px 62px;
-
-    color:
-        #25251f;
-
-    box-shadow:
-        0 25px 70px #000c;
-
+.evidence-document {
+    position: relative;
+    width: 900px;
+    padding: 42px 62px;
+    background: linear-gradient(#f7f0db, #e4d9b9);
+    color: #25251f;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .75);
 }
 
-.evidence-doc:before {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    inset:
-        12px;
-
-    border:
-        1px solid #463d2a33;
-
-    pointer-events:
-        none;
-
+.evidence-topline {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 13px;
+    border-bottom: 2px solid #26352c;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
-.topline {
-
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
-    border-bottom:
-        2px solid #26352c;
-
-    padding-bottom:
-        13px;
-
-    font-size:
-        11px;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        2px;
-
+.evidence-document h2 {
+    margin: 28px 0 5px;
+    color: #17281e;
+    font-family: Georgia, serif;
+    font-size: 29px;
 }
 
-.evidence-doc h2 {
-
-    font-family:
-        Georgia, serif;
-
-    font-size:
-        29px;
-
-    margin:
-        28px 0 5px;
-
-    color:
-        #17281e;
-
+.evidence-subtitle {
+    margin-bottom: 24px;
+    color: #687068;
+    font-size: 11px;
+    letter-spacing: 3px;
 }
 
-.subtitle {
-
-    font-size:
-        11px;
-
-    letter-spacing:
-        3px;
-
-    color:
-        #687068;
-
-    margin-bottom:
-        24px;
-
+.evidence-briefing {
+    padding: 18px 22px;
+    border-left: 5px solid #203b2c;
+    background: rgba(255, 255, 255, .27);
+    font-family: Georgia, serif;
+    line-height: 1.65;
 }
 
-.briefing {
-
-    border-left:
-        5px solid #203b2c;
-
-    background:
-        #ffffff44;
-
-    padding:
-        18px 22px;
-
-    font-family:
-        Georgia, serif;
-
-    line-height:
-        1.6;
-
+.evidence-assignment {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 24px;
 }
 
-.assignment {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:
-        25px;
-
-    margin-top:
-        24px;
-
+.evidence-steps {
+    padding: 18px;
+    border: 1px dashed #81765d;
+    font-family: Georgia, serif;
+    line-height: 1.7;
 }
 
-.steps {
-
-    border:
-        1px dashed #81765d;
-
-    padding:
-        18px;
-
-    line-height:
-        1.7;
-
-    font-family:
-        Georgia, serif;
-
+.location-riddle {
+    margin-top: 24px;
+    padding: 22px 26px;
+    border-left: 6px solid #922626;
+    background: rgba(146, 38, 38, .08);
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.8;
 }
 
-.codebox {
-
-    background:
-        #17231c;
-
-    color:
-        #8dffa8;
-
-    padding:
-        20px;
-
+.code-box {
+    padding: 20px;
+    background: #17231c;
+    color: #8dffa8;
 }
 
 .evidence-input {
-
-    width:
-        100%;
-
-    background:
-        #050b07;
-
-    color:
-        #8dffa8;
-
-    border:
-        1px solid #467a55;
-
-    padding:
-        14px;
-
-    text-align:
-        center;
-
-    font-size:
-        21px;
-
-    letter-spacing:
-        8px;
-
-    text-transform:
-        uppercase;
-
-    margin:
-        12px 0;
-
+    width: 100%;
+    margin: 12px 0;
+    padding: 14px;
+    border: 1px solid #467a55;
+    outline: none;
+    background: #050b07;
+    color: #8dffa8;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 21px;
+    letter-spacing: 8px;
 }
 
-.accepted {
-
-    display:
-        none;
-
-    margin-top:
-        22px;
-
-    border:
-        2px solid #286039;
-
-    background:
-        #18532c19;
-
-    padding:
-        20px;
-
-    font-family:
-        Georgia, serif;
-
-    line-height:
-        1.55;
-
+.evidence-input:focus {
+    border-color: #8dffa8;
+    box-shadow: 0 0 12px rgba(141, 255, 168, .15);
 }
 
-.location {
-
-    border-left:
-        5px solid #922626;
-
-    background:
-        #92262612;
-
-    padding:
-        15px;
-
-    font-weight:
-        bold;
-
+.evidence-accepted {
+    display: none;
+    margin-top: 22px;
+    padding: 20px;
+    border: 2px solid #286039;
+    background: rgba(24, 83, 44, .1);
+    font-family: Georgia, serif;
+    line-height: 1.55;
 }
 
-.back-btn {
-
-    border:
-        1px solid #6b614c;
-
-    background:
-        transparent;
-
-    color:
-        #423b2d;
-
-    padding:
-        10px 15px;
-
-    cursor:
-        pointer;
-
-    font-weight:
-        bold;
-
-    margin-bottom:
-        18px;
-
+.location-result {
+    padding: 15px;
+    border-left: 5px solid #922626;
+    background: rgba(146, 38, 38, .08);
+    font-weight: bold;
+    line-height: 1.6;
 }
 
+.back-button {
+    margin-bottom: 18px;
+    padding: 10px 15px;
+    border: 1px solid #6b614c;
+    background: transparent;
+    color: #423b2d;
+    font-weight: bold;
+}
+
+/* =====================================
+   RESPONSIVE FALLBACK
+===================================== */
+
+@media (max-width: 900px) {
+    .folder {
+        width: 95vw;
+    }
+
+    .paper {
+        padding: 35px;
+    }
+
+    .classified-stamp {
+        display: none;
+    }
+
+    .dashboard-content,
+    .evidence-assignment {
+        grid-template-columns: 1fr;
+    }
+
+    .envelope {
+        grid-template-columns: 55px 1fr;
+    }
+
+    .envelope-button {
+        grid-column: 1 / -1;
+    }
+}
 </style>
-
 </head>
 
-
 <body>
-
 
 <!-- =====================================
      INTRODUCTION
 ===================================== -->
 
-<section
-id="landing"
-class="screen active"
->
+<section id="landing" class="screen active">
 
-<div class="folder">
+    <div class="folder">
 
-<div class="tab">
-CASE SS-2026
-</div>
+        <div class="folder-tab">
+            CASE SS-2026
+        </div>
 
-<main class="paper">
+        <main class="paper">
 
-<div class="santa">
-🎅🏻
-</div>
+            <div class="santa">🎅🏻</div>
 
-<div class="agency">
-NORTH POLE INTELLIGENCE SERVICE
-</div>
+            <div class="agency">
+                NORTH POLE INTELLIGENCE SERVICE
+            </div>
 
-<h1>
-NPIS
-</h1>
+            <h1>NPIS</h1>
 
-<div class="division">
-SPECIAL CHRISTMAS OPERATIONS DIVISION
-</div>
+            <div class="division">
+                SPECIAL CHRISTMAS OPERATIONS DIVISION
+            </div>
 
-<div class="stamp">
-CLASSIFIED
-</div>
+            <div class="classified-stamp">
+                CLASSIFIED
+            </div>
 
+            <div class="case-info">
 
-<div class="case-info">
+                <div>
+                    <strong>CASE FILE:</strong> SS-2026
+                    <br>
+                    <strong>OPERATION:</strong> SECRET SANTA
+                </div>
 
-<div>
+                <div>
+                    <strong>STATUS:</strong>
+                    <span style="color:#8b1c1c;font-weight:bold;">
+                        ● ACTIVE
+                    </span>
+                    <br>
+                    <strong>CLEARANCE:</strong> CHRISTMAS LEVEL
+                </div>
 
-<b>
-CASE FILE:
-</b>
+            </div>
 
-SS-2026
+            <div class="report">
 
-<br>
+                <strong>// INTELLIGENCE BRIEFING</strong>
 
-<b>
-OPERATION:
-</b>
+                <p>
+                    An unidentified individual has been operating under
+                    the alias
+                    <strong style="color:#861d1d;">
+                        “Secret Santa.”
+                    </strong>
+                </p>
 
-SECRET SANTA
+                <p>
+                    North Pole Intelligence has intercepted messages,
+                    puzzles and suspicious clues that may reveal the
+                    identity of this individual.
+                </p>
 
-</div>
+                <p>
+                    You have been selected to lead the investigation.
+                </p>
 
+            </div>
 
-<div>
+            <div class="mission">
 
-<b>
-STATUS:
-</b>
+                <div>
+                    <span class="mission-icon">🧩</span>
+                    SOLVE THE PUZZLES
+                </div>
 
-<span
-style="
-color:#8b1c1c;
-font-weight:bold;
-"
->
+                <div>
+                    <span class="mission-icon">🔎</span>
+                    COLLECT THE EVIDENCE
+                </div>
 
-● ACTIVE
+                <div>
+                    <span class="mission-icon">🕵️</span>
+                    IDENTIFY SECRET SANTA
+                </div>
 
-</span>
+            </div>
 
-<br>
+            <p class="warning">
+                ⚠ WARNING: NOT EVERY CLUE IS WHAT IT SEEMS.
+            </p>
 
-<b>
-CLEARANCE:
-</b>
+            <div class="center">
 
-CHRISTMAS LEVEL
+                <button
+                    class="red-button"
+                    type="button"
+                    onclick="beginInvestigation()"
+                >
+                    ▶ BEGIN INVESTIGATION
+                </button>
 
-</div>
+            </div>
 
-</div>
+        </main>
 
-
-<div class="report">
-
-<b>
-// INTELLIGENCE BRIEFING
-</b>
-
-<p>
-
-An unidentified individual has been operating
-under the alias
-
-<b
-style="color:#861d1d"
->
-
-"Secret Santa."
-
-</b>
-
-</p>
-
-
-<p>
-
-North Pole Intelligence has intercepted messages,
-puzzles and suspicious clues that may reveal
-the identity of this individual.
-
-</p>
-
-
-<p>
-
-You have been selected to lead the investigation.
-
-</p>
-
-</div>
-
-
-<div class="mission">
-
-<div>
-
-<b>
-🧩
-</b>
-
-SOLVE THE PUZZLES
-
-</div>
-
-
-<div>
-
-<b>
-🔎
-</b>
-
-COLLECT THE EVIDENCE
-
-</div>
-
-
-<div>
-
-<b>
-🕵️
-</b>
-
-IDENTIFY SECRET SANTA
-
-</div>
-
-</div>
-
-
-<p class="warning">
-
-⚠ WARNING:
-NOT EVERY CLUE IS WHAT IT SEEMS.
-
-</p>
-
-
-<div class="center">
-
-<button
-class="red-btn"
-onclick="beginInvestigation()"
->
-
-▶ BEGIN INVESTIGATION
-
-</button>
-
-</div>
-
-
-</main>
-
-</div>
+    </div>
 
 </section>
-
-
 
 <!-- =====================================
      SECURITY
 ===================================== -->
 
-<section
-id="security"
-class="screen"
->
+<section id="security" class="screen">
 
-<div class="terminal-box">
+    <div class="terminal-box">
 
+        <div style="text-align:center;font-size:40px;">
+            🔒
+        </div>
 
-<div
-style="
-text-align:center;
-font-size:40px;
-"
->
+        <h2>NPIS SECURE ACCESS</h2>
 
-🔒
+        <p style="text-align:center;font-size:11px;letter-spacing:2px;">
+            IDENTITY VERIFICATION PROTOCOL
+        </p>
 
-</div>
+        <p>
+            This case contains classified North Pole intelligence.
+            Access is restricted to the assigned elf.
+            Enter your credentials to continue.
+        </p>
 
+        <div class="field-label">
+            ELF USERNAME
+        </div>
 
-<h2>
+        <input
+            id="agentName"
+            class="terminal-input"
+            type="text"
+            autocomplete="off"
+            placeholder="Enter your username"
+        >
 
-NPIS SECURE ACCESS
+        <div class="field-label">
+            SECRET ACCESS CODE
+        </div>
 
-</h2>
+        <input
+            id="secretCode"
+            class="terminal-input"
+            type="password"
+            autocomplete="off"
+            placeholder="Enter classified access code"
+        >
 
+        <button
+            class="green-button full-button"
+            type="button"
+            style="margin-top:22px;"
+            onclick="verifyIdentity()"
+        >
+            VERIFY IDENTITY
+        </button>
 
-<p
-style="
-text-align:center;
-font-size:11px;
-letter-spacing:2px;
-"
->
+        <div
+            id="securityMessage"
+            class="message"
+            aria-live="polite"
+        ></div>
 
-IDENTITY VERIFICATION PROTOCOL
-
-</p>
-
-
-<p>
-
-This case contains classified North Pole intelligence.
-
-Access is restricted to the assigned elf.
-
-Enter your credentials to continue.
-
-</p>
-
-
-<div class="field-label">
-
-ELF USERNAME
-
-</div>
-
-
-<input
-id="agentName"
-class="terminal-input"
-autocomplete="off"
-placeholder="Enter your username"
->
-
-
-<div class="field-label">
-
-SECRET ACCESS CODE
-
-</div>
-
-
-<input
-id="secretCode"
-class="terminal-input"
-type="password"
-autocomplete="off"
-placeholder="Enter classified access code"
->
-
-
-<button
-class="green-btn full"
-onclick="verifyIdentity()"
->
-
-VERIFY IDENTITY
-
-</button>
-
-
-<div
-id="securityMessage"
-class="message"
-aria-live="polite"
-></div>
-
-
-</div>
+    </div>
 
 </section>
-
-
 
 <!-- =====================================
      ACCESS GRANTED
 ===================================== -->
 
-<section
-id="granted"
-class="screen"
->
+<section id="accessGranted" class="screen">
 
-<div
-style="
-text-align:center;
-"
->
+    <div style="text-align:center;">
 
+        <h2 style="font-size:34px;letter-spacing:6px;">
+            ACCESS GRANTED
+        </h2>
 
-<h2
-style="
-font-size:34px;
-letter-spacing:6px;
-"
->
+        <p
+            id="accessGrantedText"
+            style="color:#b6eac5;letter-spacing:2px;"
+        >
+            IDENTITY CONFIRMED
+        </p>
 
-ACCESS GRANTED
+        <div class="blink">█</div>
 
-</h2>
-
-
-<p
-id="grantedText"
-style="
-letter-spacing:2px;
-color:#b6eac5;
-"
->
-
-IDENTITY CONFIRMED
-
-</p>
-
-
-<div class="blink">
-
-█
-
-</div>
-
-
-</div>
+    </div>
 
 </section>
 
-
-
 <!-- =====================================
-     CASE DASHBOARD
+     DASHBOARD
 ===================================== -->
 
 <section id="dashboard">
 
-<div class="dashboard-shell">
+    <div class="dashboard-shell">
 
+        <header class="dashboard-header">
 
-<header class="dash-header">
+            <div>
 
+                <div style="color:#6aa07c;font-size:10px;letter-spacing:2px;">
+                    NORTH POLE INTELLIGENCE SERVICE
+                </div>
 
-<div>
+                <h1>CASE DASHBOARD</h1>
 
-<div
-style="
-color:#6aa07c;
-font-size:10px;
-letter-spacing:2px;
-"
->
+            </div>
 
-NORTH POLE INTELLIGENCE SERVICE
+            <div class="dashboard-agent">
 
-</div>
+                <div>CASE: SS-2026</div>
 
+                <div>OPERATION: SECRET SANTA</div>
 
-<h1>
+                <div id="dashboardAgent">
+                    ELF: UNKNOWN
+                </div>
 
-CASE DASHBOARD
+                <button
+                    class="lock-button"
+                    type="button"
+                    onclick="lockTerminal()"
+                >
+                    LOCK TERMINAL
+                </button>
 
-</h1>
+            </div>
 
-</div>
+        </header>
 
+        <div class="dashboard-content">
 
-<div class="agent-meta">
+            <main>
 
-<div>
+                <div class="progress-container">
 
-CASE: SS-2026
+                    <div class="progress-labels">
 
-</div>
+                        <span>INVESTIGATION PROGRESS</span>
 
-<div>
+                        <span id="progressText">0 / 5</span>
 
-OPERATION:
-SECRET SANTA
+                    </div>
 
-</div>
+                    <div class="progress-background">
 
+                        <div
+                            id="progressFill"
+                            class="progress-fill"
+                        ></div>
 
-<div id="dashboardAgent">
+                    </div>
 
-ELF: UNKNOWN
+                </div>
 
-</div>
+                <div
+                    id="envelopes"
+                    class="envelopes"
+                ></div>
 
+            </main>
 
-<button
-class="logout"
-onclick="logout()"
->
+            <aside class="photo-panel">
 
-LOCK TERMINAL
+                <div class="photo-title">
+                    ELF IDENTIFICATION PHOTOGRAPH
+                </div>
 
-</button>
+                <div class="photo-square">
 
-</div>
+                    <img
+                        id="agentPhoto"
+                        class="agent-photo"
+                        alt="Elf identification photograph"
+                    >
 
+                    <div
+                        id="photoRequest"
+                        class="photo-request"
+                    >
 
-</header>
+                        <h3>PHOTOGRAPH REQUIRED</h3>
 
+                        <p>
+                            Send your photograph to
+                        </p>
 
+                        <p class="email-address">
+                            boronsecretsanta@gmail.com
+                        </p>
 
-<div class="dash-main">
+                        <div class="photo-guidelines">
 
+                            <strong>
+                                PHOTOGRAPH GUIDELINES
+                            </strong>
 
-<main>
+                            <br><br>
 
+                            1. Eyes must not be visible.
 
-<div class="progress-wrap">
+                            <br><br>
 
+                            2. A Christmas hat is required.
 
-<div class="progress-label">
+                        </div>
 
-<span>
+                        <p style="font-size:11px;margin-top:18px;">
+                            Your photograph will appear here once it has
+                            been processed by NPIS Headquarters.
+                        </p>
 
-INVESTIGATION PROGRESS
+                    </div>
 
-</span>
+                </div>
 
-<span id="progressText">
+                <div class="photo-note">
+                    NPIS FACIAL IDENTIFICATION PROTOCOL
+                    //
+                    CASE SS-2026
+                </div>
 
-0 / 5
+            </aside>
 
-</span>
+        </div>
 
-</div>
-
-
-<div class="progress-bar">
-
-<div
-id="progressFill"
-class="progress-fill"
-></div>
-
-</div>
-
-
-</div>
-
-
-
-<div
-id="envelopes"
-class="envelopes"
-></div>
-
-
-</main>
-
-
-
-<!-- =====================================
-     PHOTO IDENTIFICATION
-===================================== -->
-
-<aside class="photo-panel">
-
-
-<div class="photo-title">
-
-ELF IDENTIFICATION PHOTOGRAPH
-
-</div>
-
-
-<div class="photo-square">
-
-
-<img
-id="agentPhoto"
-class="agent-photo"
-alt="Elf identification photograph"
->
-
-
-<div
-id="photoRequest"
-class="photo-request"
->
-
-
-<h3>
-
-PHOTOGRAPH REQUIRED
-
-</h3>
-
-
-<p>
-
-Send your photograph to
-
-</p>
-
-
-<p class="email">
-
-boronsecretsanta@gmail.com
-
-</p>
-
-
-<div class="guidelines">
-
-
-<b>
-
-PHOTOGRAPH GUIDELINES
-
-</b>
-
-
-<br><br>
-
-
-1. Eyes must not be visible.
-
-
-<br><br>
-
-
-2. A Christmas hat is required.
-
-
-</div>
-
-
-<p
-style="
-font-size:11px;
-margin-top:18px;
-"
->
-
-Your photograph will appear here
-once it has been processed by
-NPIS Headquarters.
-
-</p>
-
-
-</div>
-
-</div>
-
-
-<div class="photo-note">
-
-NPIS FACIAL IDENTIFICATION PROTOCOL
-//
-CASE SS-2026
-
-</div>
-
-
-</aside>
-
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-
-
 <!-- =====================================
-     EVIDENCE 001
+     ELF ENVELOPE 001
 ===================================== -->
 
-<section
-id="evidence001"
-class="screen"
->
+<section id="evidence001" class="screen">
 
+    <main class="evidence-document">
 
-<main class="evidence-doc">
+        <button
+            class="back-button"
+            type="button"
+            onclick="showDashboard()"
+        >
+            ← RETURN TO DASHBOARD
+        </button>
 
+        <div class="evidence-topline">
 
-<button
-class="back-btn"
-onclick="showDashboard()"
->
+            <span>NORTH POLE INTELLIGENCE SERVICE</span>
 
-← RETURN TO DASHBOARD
+            <span>CASE SS-2026</span>
 
-</button>
+        </div>
 
+        <h2>THE MISSING LINK</h2>
 
-<div class="topline">
+        <div class="evidence-subtitle">
+            ELF ENVELOPE 001
+            //
+            PHYSICAL EVIDENCE ANALYSIS
+        </div>
 
-<span>
+        <div class="evidence-briefing">
 
-NORTH POLE INTELLIGENCE SERVICE
+            <strong>EVIDENCE ANALYSIS REQUIRED</strong>
 
-</span>
+            <br><br>
 
-<span>
+            Locate and open
+            <strong>ELF ENVELOPE 001</strong>.
 
-CASE SS-2026
+            <br><br>
 
-</span>
+            Before you rush to search around,
+            look for the signs that cannot be found.
 
-</div>
+            <br>
 
+            A locked lock may hide a clue;
+            a silent door might guide you too.
 
-<h2>
+            <br>
 
-THE MISSING LINK
+            Turn your attention to what seems wrong;
+            the clue has been there all along.
 
-</h2>
+            <br>
 
+            Follow the trail, do not lose your way;
+            this mystery is a game to play.
 
-<div class="subtitle">
+            <br>
 
-ELF ENVELOPE 001
-//
-PHYSICAL EVIDENCE ANALYSIS
+            Find the missing pieces, one by one,
+            then seek the place where it is done.
 
-</div>
+        </div>
 
+        <div class="evidence-assignment">
 
+            <div class="evidence-steps">
 
-<div class="briefing">
+                <strong>// FIELD ASSIGNMENT</strong>
 
+                <p>
+                    Arrange them by size, from large down to small.
+                    <br><br>
+                    Flip each one over; the code reveals all!
+                </p>
 
-<b>
+            </div>
 
-EVIDENCE ANALYSIS REQUIRED
+            <div class="code-box">
 
-</b>
+                <label for="evidenceCode001">
+                    RECOVERED ACCESS KEY
+                </label>
 
+                <input
+                    id="evidenceCode001"
+                    class="evidence-input"
+                    type="text"
+                    maxlength="5"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="_____"
+                >
 
-<br><br>
+                <button
+                    id="submitEvidenceButton001"
+                    class="green-button full-button"
+                    type="button"
+                    onclick="submitEvidence001()"
+                >
+                    SUBMIT EVIDENCE
+                </button>
 
+                <div
+                    id="evidenceMessage001"
+                    class="message"
+                    aria-live="polite"
+                ></div>
 
-Locate and open
+            </div>
 
-<b>
+        </div>
 
-ELF ENVELOPE 001
+        <div
+            id="evidenceAccepted001"
+            class="evidence-accepted"
+        >
 
-</b>.
+            <h3 style="color:#1f6737;">
+                ✓ EVIDENCE ACCEPTED
+            </h3>
 
-<br><br>
-efore you rush to search around, look for the signs that can’t be found.
-A locked lck may hide a clue, a silent dor might guide you too.
-urn your attention to what seems wrong, the lue has been there all along.
-Follow the tril, don’t lose your way, this ystery is a game to play.
-Find the missing pieces, one by one, then seek the lace where it is done.
-</div>
+            <p>
+                Decryption key
+                <strong>VAULT</strong>
+                confirmed.
+            </p>
 
+            <p>
+                Intelligence analysis indicates that
+                <strong>
+                    VAULT does not refer to an actual vault.
+                </strong>
+            </p>
 
+            <div class="location-result">
 
-<div class="assignment">
+                Office surveillance detected unusual activity near
+                the place where confidential documents go to disappear.
 
+                <br><br>
 
-<div class="steps">
+                Recover
+                <strong>ELF ENVELOPE 002</strong>
+                and await further instructions.
 
+            </div>
 
-<b>
+            <div class="center" style="margin-top:18px;">
 
-// FIELD ASSIGNMENT
+                <button
+                    class="green-button"
+                    type="button"
+                    onclick="showDashboard()"
+                >
+                    RETURN TO CASE DASHBOARD
+                </button>
 
-</b>
+            </div>
 
-Arrange them by size, from large down to small,
-Flip each one over, the code reveals all!
+        </div>
 
-</div>
-
-
-
-<div class="codebox">
-
-
-<label>
-
-RECOVERED ACCESS KEY
-
-</label>
-
-
-<input
-id="evidenceCode"
-class="evidence-input"
-maxlength="5"
-autocomplete="off"
-placeholder="_____"
->
-
-
-<button
-id="submitEvidenceButton"
-class="green-btn"
-style="
-width:100%;
-"
-onclick="submitEvidence()"
->
-
-SUBMIT EVIDENCE
-
-</button>
-
-
-<div
-id="evidenceMessage"
-class="message"
-aria-live="polite"
-></div>
-
-
-</div>
-
-
-</div>
-
-
-
-<div
-id="evidenceAccepted"
-class="accepted"
->
-
-
-<h3
-style="
-color:#1f6737;
-"
->
-
-✓ EVIDENCE ACCEPTED
-
-</h3>
-
-
-<p>
-
-Decryption key
-
-<b>
-
-VAULT
-
-</b>
-
-confirmed.
-
-</p>
-
-
-<p>
-
-Intelligence analysis indicates that
-
-<b>
-
-VAULT does not refer to an actual vault.
-
-</b>
-
-</p>
-
-
-
-<div class="location">
-
-
-Office surveillance detected unusual activity
-near the place where confidential documents
-go to disappear.
-
-
-<br><br>
-
-
-Recover
-
-<b>
-
-ELF ENVELOPE 002
-
-</b>
-
-and await further instructions.
-
-
-</div>
-
-
-
-<div
-class="center"
-style="
-margin-top:18px;
-"
->
-
-
-<button
-class="green-btn"
-onclick="showDashboard()"
->
-
-RETURN TO CASE DASHBOARD
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-</main>
-
+    </main>
 
 </section>
 
+<!-- =====================================
+     ELF ENVELOPE 002
+===================================== -->
 
+<section id="evidence002" class="screen">
+
+    <main class="evidence-document">
+
+        <button
+            class="back-button"
+            type="button"
+            onclick="showDashboard()"
+        >
+            ← RETURN TO DASHBOARD
+        </button>
+
+        <div class="evidence-topline">
+
+            <span>NORTH POLE INTELLIGENCE SERVICE</span>
+
+            <span>CASE SS-2026</span>
+
+        </div>
+
+        <h2>THE ELF WHO KNEW TOO MUCH</h2>
+
+        <div class="evidence-subtitle">
+            ELF ENVELOPE 002
+            //
+            COLLEAGUE INTELLIGENCE OPERATION
+        </div>
+
+        <div class="evidence-briefing">
+
+            <strong>FIELD INVESTIGATION REQUIRED</strong>
+
+            <br><br>
+
+            NPIS believes the next intelligence package is hidden
+            somewhere in the office.
+
+            <br><br>
+
+            This mission will test how well you know your colleagues,
+            their habits and the place where friendly workplace
+            rivalries are settled.
+
+        </div>
+
+        <div class="location-riddle">
+
+            <strong
+                style="
+                    display:block;
+                    margin-bottom:15px;
+                    color:#922626;
+                    font-family:'Courier New',monospace;
+                    font-size:11px;
+                    font-style:normal;
+                    letter-spacing:2px;
+                "
+            >
+                // INTERCEPTED LOCATION CLUE
+            </strong>
+
+            Where tiny players stand shoulder to shoulder,
+            <br>
+            no one ever leaves their assigned post.
+
+            <br><br>
+
+            A single ball decides the battle,
+            <br>
+            while spinning figures fight for every goal.
+
+            <br><br>
+
+            Seek the room where colleagues become rivals,
+            <br>
+            but victory is always settled on a table.
+
+        </div>
+
+        <div class="evidence-assignment">
+
+            <div class="evidence-steps">
+
+                <strong>// RECOVERY PROCEDURE</strong>
+
+                <ol>
+                    <li>
+                        Determine the location described in the clue.
+                    </li>
+
+                    <li>
+                        Proceed to that location.
+                    </li>
+
+                    <li>
+                        Recover ELF ENVELOPE 002.
+                    </li>
+
+                    <li>
+                        Complete the colleague intelligence puzzle inside.
+                    </li>
+
+                    <li>
+                        Enter the recovered ten-letter identification key.
+                    </li>
+                </ol>
+
+            </div>
+
+            <div class="code-box">
+
+                <label for="evidenceCode002">
+                    RECOVERED IDENTIFICATION KEY
+                </label>
+
+                <input
+                    id="evidenceCode002"
+                    class="evidence-input"
+                    type="text"
+                    maxlength="10"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="__________"
+                    style="font-size:18px;letter-spacing:4px;"
+                >
+
+                <button
+                    id="submitEvidenceButton002"
+                    class="green-button full-button"
+                    type="button"
+                    onclick="submitEvidence002()"
+                >
+                    SUBMIT EVIDENCE
+                </button>
+
+                <div
+                    id="evidenceMessage002"
+                    class="message"
+                    aria-live="polite"
+                ></div>
+
+            </div>
+
+        </div>
+
+        <div
+            id="evidenceAccepted002"
+            class="evidence-accepted"
+        >
+
+            <h3 style="color:#1f6737;">
+                ✓ EVIDENCE ACCEPTED
+            </h3>
+
+            <p>
+                Recovered identification key
+                <strong>SANTACLAUS</strong>
+                confirmed.
+            </p>
+
+            <p>
+                Your knowledge of the office network has been verified.
+            </p>
+
+            <div
+                class="location-result"
+                style="border-left-color:#286039;"
+            >
+
+                COLLEAGUE INTELLIGENCE COMPLETE.
+
+                <br><br>
+
+                ELF ENVELOPE 003 HAS BEEN UNLOCKED.
+
+            </div>
+
+            <div class="center" style="margin-top:18px;">
+
+                <button
+                    class="green-button"
+                    type="button"
+                    onclick="showDashboard()"
+                >
+                    RETURN TO CASE DASHBOARD
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</section>
 
 <script>
-
 
 /* =====================================
    CONFIGURATION
 ===================================== */
 
+const ACCESS_CODE = "CHRISTMAS-2026";
 
-const ACCESS_CODE =
-    "CHRISTMAS-2026";
-
-
-let currentAgent =
-    "";
-
-
-let photoAvailable =
-    false;
-
-
+let currentAgent = "";
+let photoAvailable = false;
 
 const envelopeData = [
-
     {
-
-        n: 1,
-
-        title:
-            "THE MISSING LINK",
-
-        type:
-            "PHOTOGRAPHIC EVIDENCE"
-
+        number: 1,
+        title: "THE MISSING LINK",
+        type: "PHYSICAL EVIDENCE"
     },
-
     {
-
-        n: 2,
-
-        title:
-            "CLASSIFIED",
-
-        type:
-            "AWAITING EVIDENCE FILE"
-
+        number: 2,
+        title: "THE ELF WHO KNEW TOO MUCH",
+        type: "COLLEAGUE INTELLIGENCE"
     },
-
     {
-
-        n: 3,
-
-        title:
-            "CLASSIFIED",
-
-        type:
-            "AWAITING EVIDENCE FILE"
-
+        number: 3,
+        title: "CLASSIFIED",
+        type: "AWAITING EVIDENCE FILE"
     },
-
     {
-
-        n: 4,
-
-        title:
-            "CLASSIFIED",
-
-        type:
-            "AWAITING EVIDENCE FILE"
-
+        number: 4,
+        title: "CLASSIFIED",
+        type: "AWAITING EVIDENCE FILE"
     },
-
     {
-
-        n: 5,
-
-        title:
-            "CLASSIFIED",
-
-        type:
-            "FINAL CASE MATERIAL"
-
+        number: 5,
+        title: "CLASSIFIED",
+        type: "FINAL CASE MATERIAL"
     }
-
 ];
-
-
 
 /* =====================================
    SCREEN CONTROL
 ===================================== */
 
-
-function setScreen(id) {
-
+function setScreen(screenId) {
 
     document
-        .querySelectorAll(
-            ".screen"
-        )
-        .forEach(
-            function(screen) {
+        .querySelectorAll(".screen")
+        .forEach(function(screen) {
+            screen.classList.remove("active");
+        });
 
-                screen
-                    .classList
-                    .remove(
-                        "active"
-                    );
+    document.getElementById("dashboard").style.display = "none";
 
-            }
-        );
-
-
-    document
-        .getElementById(
-            "dashboard"
-        )
-        .style
-        .display =
-            "none";
-
-
-    if (
-        id ===
-        "dashboard"
-    ) {
-
-
-        document
-            .getElementById(
-                "dashboard"
-            )
-            .style
-            .display =
-                "block";
-
-
+    if (screenId === "dashboard") {
+        document.getElementById("dashboard").style.display = "block";
+    } else {
+        document.getElementById(screenId).classList.add("active");
     }
-
-    else {
-
-
-        document
-            .getElementById(
-                id
-            )
-            .classList
-            .add(
-                "active"
-            );
-
-
-    }
-
 }
-
-
 
 /* =====================================
    SNOW
 ===================================== */
 
-
 function createSnow() {
 
+    for (let i = 0; i < 55; i++) {
 
-    for (
-        let i = 0;
-        i < 55;
-        i++
-    ) {
+        const snowflake = document.createElement("div");
 
+        snowflake.className = "snow";
+        snowflake.textContent = "❄";
 
-        const snow =
-            document
-                .createElement(
-                    "div"
-                );
+        snowflake.style.left =
+            Math.random() * 100 + "vw";
 
+        snowflake.style.fontSize =
+            Math.random() * 8 + 7 + "px";
 
-        snow.className =
-            "snow";
+        snowflake.style.opacity =
+            Math.random() * .6 + .2;
 
+        snowflake.style.animationDuration =
+            Math.random() * 8 + 7 + "s";
 
-        snow.textContent =
-            "❄";
+        snowflake.style.animationDelay =
+            Math.random() * -12 + "s";
 
-
-        snow.style.left =
-            Math.random() *
-            100 +
-            "vw";
-
-
-        snow.style.fontSize =
-            (
-                Math.random() *
-                8 +
-                7
-            ) +
-            "px";
-
-
-        snow.style.opacity =
-            Math.random() *
-            .6 +
-            .2;
-
-
-        snow.style.animationDuration =
-            (
-                Math.random() *
-                8 +
-                7
-            ) +
-            "s";
-
-
-        snow.style.animationDelay =
-            (
-                Math.random() *
-                -12
-            ) +
-            "s";
-
-
-        document
-            .body
-            .appendChild(
-                snow
-            );
-
-
+        document.body.appendChild(snowflake);
     }
-
-
 }
-
 
 createSnow();
 
-
-
 /* =====================================
-   USERNAME TO IMAGE FILENAME
+   USERNAME NORMALIZATION
 ===================================== */
-
 
 function slugify(value) {
 
-
     return value
-
         .trim()
-
         .toLowerCase()
-
-        .normalize(
-            "NFD"
-        )
-
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-
-        .replace(
-            /[^a-z0-9]+/g,
-            "-"
-        )
-
-        .replace(
-            /^-+|-+$/g,
-            ""
-        );
-
-
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
 }
-
-
 
 /* =====================================
-   SAVE PROGRESS
+   PROGRESS STORAGE
 ===================================== */
 
-
-function stateKey() {
-
+function progressStorageKey() {
 
     return (
-
         "npis-" +
-
-        slugify(
-            currentAgent
-        ) +
-
+        slugify(currentAgent) +
         "-progress"
-
     );
-
-
 }
-
-
 
 function getProgress() {
 
-
-    return Math.max(
-
-        0,
-
-        Math.min(
-
-            5,
-
-            Number(
-
-                localStorage
-                    .getItem(
-                        stateKey()
-                    )
-
-                ||
-
-                0
-
-            )
-
-        )
-
-    );
-
-
-}
-
-
-
-function setProgress(value) {
-
-
-    localStorage
-        .setItem(
-
-            stateKey(),
-
-            String(
-
-                Math.max(
-
-                    getProgress(),
-
-                    value
-
-                )
-
-            )
-
+    const savedProgress =
+        Number(
+            localStorage.getItem(progressStorageKey()) || 0
         );
 
-
+    return Math.max(
+        0,
+        Math.min(5, savedProgress)
+    );
 }
 
+function setProgress(newProgress) {
 
+    const currentProgress = getProgress();
+
+    localStorage.setItem(
+        progressStorageKey(),
+        String(
+            Math.max(currentProgress, newProgress)
+        )
+    );
+}
 
 /* =====================================
-   BEGIN INVESTIGATION
+   LOGIN
 ===================================== */
-
 
 function beginInvestigation() {
 
+    setScreen("security");
 
-    setScreen(
-        "security"
-    );
-
-
-    setTimeout(
-        function() {
-
-
-            document
-                .getElementById(
-                    "agentName"
-                )
-                .focus();
-
-
-        },
-        150
-    );
-
-
+    setTimeout(function() {
+        document.getElementById("agentName").focus();
+    }, 150);
 }
-
-
-
-/* =====================================
-   VERIFY IDENTITY
-===================================== */
-
 
 function verifyIdentity() {
 
-
-    const name =
-
+    const agentName =
         document
-            .getElementById(
-                "agentName"
-            )
+            .getElementById("agentName")
             .value
             .trim();
 
-
-    const code =
-
+    const enteredCode =
         document
-            .getElementById(
-                "secretCode"
-            )
+            .getElementById("secretCode")
             .value
             .trim()
             .toUpperCase();
 
-
     const message =
+        document.getElementById("securityMessage");
 
-        document
-            .getElementById(
-                "securityMessage"
-            );
+    if (!agentName) {
 
-
-    if (!name) {
-
-
-        message.style.color =
-            "#ff7373";
-
+        message.style.color = "#ff7373";
 
         message.textContent =
             "⚠ ELF IDENTIFICATION REQUIRED.";
 
-
         return;
-
     }
 
+    if (enteredCode !== ACCESS_CODE) {
 
-
-    if (
-        code !==
-        ACCESS_CODE
-    ) {
-
-
-        message.style.color =
-            "#ff5f5f";
-
+        message.style.color = "#ff5f5f";
 
         message.textContent =
             "⛔ ACCESS DENIED // INVALID CREDENTIALS";
 
-
-        document
-            .getElementById(
-                "secretCode"
-            )
-            .value =
-                "";
-
+        document.getElementById("secretCode").value = "";
 
         return;
-
     }
 
+    currentAgent = agentName;
 
+    localStorage.setItem(
+        "npis-last-agent",
+        currentAgent
+    );
 
-    currentAgent =
-        name;
-
-
-    localStorage
-        .setItem(
-
-            "npis-last-agent",
-
-            name
-
-        );
-
-
-    message.style.color =
-        "#75ff9a";
-
+    message.style.color = "#75ff9a";
 
     message.textContent =
         "✓ CREDENTIALS ACCEPTED";
 
-
-    setTimeout(
-        function() {
-
-
-            showAccessGranted();
-
-
-        },
-        650
-    );
-
-
+    setTimeout(showAccessGranted, 650);
 }
-
-
 
 /* =====================================
    ACCESS GRANTED
 ===================================== */
 
-
 function showAccessGranted() {
 
-
-    setScreen(
-        "granted"
-    );
-
+    setScreen("accessGranted");
 
     const text =
+        document.getElementById("accessGrantedText");
 
-        document
-            .getElementById(
-                "grantedText"
-            );
+    text.textContent = "IDENTITY CONFIRMED";
 
+    setTimeout(function() {
 
-    text.textContent =
-        "IDENTITY CONFIRMED";
+        text.textContent =
+            "WELCOME, ELF " +
+            currentAgent.toUpperCase();
 
+    }, 700);
 
-    setTimeout(
+    setTimeout(function() {
 
-        function() {
+        text.textContent =
+            "LOADING CASE DASHBOARD...";
 
+    }, 1600);
 
-            text.textContent =
-
-                "WELCOME, ELF " +
-
-                currentAgent
-                    .toUpperCase();
-
-
-        },
-
-        700
-
-    );
-
-
-    setTimeout(
-
-        function() {
-
-
-            text.textContent =
-                "LOADING CASE DASHBOARD...";
-
-
-        },
-
-        1600
-
-    );
-
-
-    setTimeout(
-
-        function() {
-
-
-            showDashboard();
-
-
-        },
-
-        2500
-
-    );
-
-
+    setTimeout(showDashboard, 2500);
 }
-
-
 
 /* =====================================
    DASHBOARD
 ===================================== */
 
-
 function showDashboard() {
 
-
-    setScreen(
-        "dashboard"
-    );
-
+    setScreen("dashboard");
 
     document
-        .getElementById(
-            "dashboardAgent"
-        )
+        .getElementById("dashboardAgent")
         .textContent =
-
             "ELF: " +
+            currentAgent.toUpperCase();
 
-            currentAgent
-                .toUpperCase();
+    photoAvailable = false;
 
-
-    /*
-    Start locked until photograph
-    has been verified.
-    */
-
-    photoAvailable =
-        false;
-
-
-    renderDashboard(
-        false
-    );
-
+    renderDashboard();
 
     loadAgentPhoto();
-
-
 }
 
+function renderDashboard() {
 
-
-/* =====================================
-   RENDER DASHBOARD
-===================================== */
-
-
-function renderDashboard(
-    identificationComplete =
-        false
-) {
-
-
-    const progress =
-        getProgress();
-
+    const progress = getProgress();
 
     document
-        .getElementById(
-            "progressText"
-        )
+        .getElementById("progressText")
         .textContent =
-
-            progress +
-            " / 5";
-
+            progress + " / 5";
 
     document
-        .getElementById(
-            "progressFill"
-        )
-        .style
-        .width =
+        .getElementById("progressFill")
+        .style.width =
+            progress * 20 + "%";
 
-            (
-                progress *
-                20
-            ) +
-            "%";
+    const envelopeContainer =
+        document.getElementById("envelopes");
 
+    envelopeContainer.innerHTML = "";
 
-    const container =
+    envelopeData.forEach(function(envelope) {
 
-        document
-            .getElementById(
-                "envelopes"
-            );
+        const solved =
+            envelope.number <= progress;
 
+        let unlocked =
+            envelope.number === progress + 1;
 
-    container.innerHTML =
-        "";
+        if (envelope.number === 1) {
+            unlocked = photoAvailable;
+        }
 
+        let status;
 
+        if (solved) {
 
-    envelopeData
-        .forEach(
-            function(item) {
+            status = "✓ SOLVED";
 
+        } else if (
+            envelope.number === 1 &&
+            !photoAvailable
+        ) {
 
-                const solved =
+            status = "⚠ IDENTIFICATION REQUIRED";
 
-                    item.n <=
-                    progress;
+        } else if (unlocked) {
 
+            status = "● AVAILABLE";
 
-                let unlocked =
+        } else {
 
-                    item.n ===
-                    progress + 1;
+            status = "🔒 CLASSIFIED";
+        }
 
+        const envelopeRow =
+            document.createElement("div");
 
+        envelopeRow.className = "envelope";
 
-                /*
-                Envelope 001 requires
-                completed identification.
-                */
+        const envelopeButton =
+            document.createElement("button");
 
+        envelopeButton.className = "envelope-button";
+        envelopeButton.type = "button";
 
-                if (
-                    item.n ===
-                    1
-                ) {
+        if (solved) {
 
+            envelopeButton.textContent = "REVIEW FILE";
 
-                    unlocked =
+        } else if (
+            envelope.number === 1 &&
+            !photoAvailable
+        ) {
 
-                        identificationComplete;
+            envelopeButton.textContent =
+                "COMPLETE IDENTIFICATION FIRST";
 
+        } else if (unlocked) {
 
+            envelopeButton.textContent = "OPEN FILE";
+
+        } else {
+
+            envelopeButton.textContent = "LOCKED";
+        }
+
+        envelopeButton.disabled =
+            !solved && !unlocked;
+
+        if (envelope.number === 1) {
+
+            envelopeButton.onclick = function() {
+
+                if (photoAvailable || solved) {
+                    openEvidence001();
                 }
+            };
 
+        } else if (envelope.number === 2) {
 
+            envelopeButton.onclick = function() {
 
-                let status;
-
-
-
-                if (solved) {
-
-
-                    status =
-                        "✓ SOLVED";
-
-
+                if (getProgress() >= 1) {
+                    openEvidence002();
                 }
+            };
 
-                else if (
+        } else {
 
-                    item.n === 1
+            envelopeButton.onclick = function() {
 
-                    &&
+                alert(
+                    "Instructions for ELF ENVELOPE " +
+                    String(envelope.number).padStart(3, "0") +
+                    " will be sent to you soon."
+                );
+            };
+        }
 
-                    !identificationComplete
+        const titleToDisplay =
+            envelope.number <= 2
+                ? envelope.title
+                : envelope.type;
 
-                ) {
+        envelopeRow.innerHTML =
+            '<div class="envelope-number">' +
+                String(envelope.number).padStart(3, "0") +
+            '</div>' +
 
+            '<div>' +
 
-                    status =
-                        "⚠ IDENTIFICATION REQUIRED";
-
-
-                }
-
-                else if (
-                    unlocked
-                ) {
-
-
-                    status =
-                        "● AVAILABLE";
-
-
-                }
-
-                else {
-
-
-                    status =
-                        "🔒 CLASSIFIED";
-
-
-                }
-
-
-
-                const row =
-
-                    document
-                        .createElement(
-                            "div"
-                        );
-
-
-                row.className =
-                    "envelope";
-
-
-
-                const button =
-
-                    document
-                        .createElement(
-                            "button"
-                        );
-
-
-                button.className =
-                    "env-btn";
-
-
-
-                /*
-                BUTTON TEXT
-                */
-
-
-                if (solved) {
-
-
-                    button.textContent =
-                        "REVIEW FILE";
-
-
-                }
-
-                else if (
-
-                    item.n === 1
-
-                    &&
-
-                    !identificationComplete
-
-                ) {
-
-
-                    button.textContent =
-                        "COMPLETE IDENTIFICATION FIRST";
-
-
-                }
-
-                else if (
-                    unlocked
-                ) {
-
-
-                    button.textContent =
-                        "OPEN FILE";
-
-
-                }
-
-                else {
-
-
-                    button.textContent =
-                        "LOCKED";
-
-
-                }
-
-
-
-                /*
-                BUTTON ENABLED / DISABLED
-                */
-
-
-                if (
-
-                    item.n === 1
-
-                    &&
-
-                    !identificationComplete
-
-                    &&
-
-                    !solved
-
-                ) {
-
-
-                    button.disabled =
-                        true;
-
-
-                }
-
-                else {
-
-
-                    button.disabled =
-
-                        !solved
-
-                        &&
-
-                        !unlocked;
-
-
-                }
-
-
-
-                /*
-                OPEN PUZZLE
-                */
-
-
-                if (
-                    item.n === 1
-                ) {
-
-
-                    button.onclick =
-
-                        function() {
-
-
-                            if (
-                                identificationComplete
-                                ||
-                                solved
-                            ) {
-
-
-                                openEvidence001();
-
-
-                            }
-
-
-                        };
-
-
-                }
-
-                else {
-
-
-                    button.onclick =
-
-                        function() {
-
-
-                            alert(
-
-                                "instructions for ELF ENVELOPE " +
-
-                                String(
-                                    item.n
-                                )
-                                .padStart(
-                                    3,
-                                    "0"
-                                )
-
-                                +
-
-                                " will be send to you soon."
-
-                            );
-
-
-                        };
-
-
-                }
-
-
-
-                row.innerHTML =
-
-                    '<div class="env-no">' +
-
-                    String(
-                        item.n
-                    )
-                    .padStart(
-                        3,
-                        "0"
-                    )
-
-                    +
-
-                    '</div>'
-
-
-                    +
-
-                    '<div>'
-
-
-                    +
-
-                    '<div class="env-title">' +
-
+                '<div class="envelope-title">' +
                     'ELF ENVELOPE ' +
+                    String(envelope.number).padStart(3, "0") +
+                '</div>' +
 
-                    String(
-                        item.n
-                    )
-                    .padStart(
-                        3,
-                        "0"
-                    )
+                '<div class="envelope-type">' +
+                    titleToDisplay +
+                '</div>' +
 
-                    +
-
-                    '</div>'
-
-
-                    +
-
-                    '<div class="env-type">' +
-
-                    (
-                        item.n ===
-                        1
-
-                        ?
-
-                        item.title
-
-                        :
-
-                        item.type
-                    )
-
-                    +
-
-                    '</div>'
-
-
-                    +
-
-                    '<div class="env-status">' +
-
+                '<div class="envelope-status">' +
                     'STATUS: ' +
+                    status +
+                '</div>' +
 
-                    status
+            '</div>';
 
-                    +
+        envelopeRow.appendChild(envelopeButton);
 
-                    '</div>'
-
-
-                    +
-
-                    '</div>';
-
-
-
-                row
-                    .appendChild(
-                        button
-                    );
-
-
-                container
-                    .appendChild(
-                        row
-                    );
-
-
-            }
-        );
-
-
+        envelopeContainer.appendChild(envelopeRow);
+    });
 }
 
-
-
 /* =====================================
-   LOAD PHOTOGRAPH
+   PHOTO IDENTIFICATION
 ===================================== */
-
 
 function loadAgentPhoto() {
 
-
     const image =
-
-        document
-            .getElementById(
-                "agentPhoto"
-            );
-
+        document.getElementById("agentPhoto");
 
     const request =
+        document.getElementById("photoRequest");
 
-        document
-            .getElementById(
-                "photoRequest"
-            );
+    photoAvailable = false;
 
+    image.style.display = "none";
+    request.style.display = "flex";
 
+    renderDashboard();
 
-    /*
-    DEFAULT:
-    PHOTO NOT AVAILABLE
-    */
+    image.onload = function() {
 
+        photoAvailable = true;
 
-    photoAvailable =
-        false;
+        image.style.display = "block";
+        request.style.display = "none";
 
+        renderDashboard();
+    };
 
-    image.style.display =
-        "none";
+    image.onerror = function() {
 
+        photoAvailable = false;
 
-    request.style.display =
-        "flex";
+        image.style.display = "none";
+        request.style.display = "flex";
 
-
-    renderDashboard(
-        false
-    );
-
-
-
-    /*
-    PHOTO FOUND
-    */
-
-
-    image.onload =
-
-        function() {
-
-
-            photoAvailable =
-                true;
-
-
-            image.style.display =
-                "block";
-
-
-            request.style.display =
-                "none";
-
-
-            /*
-            Unlock Envelope 001
-            */
-
-
-            renderDashboard(
-                true
-            );
-
-
-        };
-
-
-
-    /*
-    PHOTO NOT FOUND
-    */
-
-
-    image.onerror =
-
-        function() {
-
-
-            photoAvailable =
-                false;
-
-
-            image.style.display =
-                "none";
-
-
-            request.style.display =
-                "flex";
-
-
-            /*
-            Keep Envelope 001 locked
-            */
-
-
-            renderDashboard(
-                false
-            );
-
-
-        };
-
-
-
-    /*
-    Example:
-
-    Login:
-    Maarten Vossepoel
-
-    Photograph filename:
-    maarten-vossepoel.jpg
-    */
-
+        renderDashboard();
+    };
 
     image.src =
-
         "images/" +
-
-        slugify(
-            currentAgent
-        )
-
-        +
-
+        slugify(currentAgent) +
         ".jpg?v=" +
-
         Date.now();
-
-
 }
 
-
-
 /* =====================================
-   OPEN EVIDENCE 001
+   ENVELOPE 001
 ===================================== */
-
 
 function openEvidence001() {
 
-
-    /*
-    Extra security check.
-
-    If puzzle has not been solved yet
-    AND no photo is available,
-    return to dashboard.
-    */
-
-
     if (
-
-        !photoAvailable
-
-        &&
-
-        getProgress() <
-        1
-
+        !photoAvailable &&
+        getProgress() < 1
     ) {
-
-
         showDashboard();
-
-
         return;
-
-
     }
 
-
-
-    setScreen(
-        "evidence001"
-    );
-
-
+    setScreen("evidence001");
 
     const solved =
-
-        getProgress() >=
-        1;
-
-
-
-    document
-        .getElementById(
-            "evidenceAccepted"
-        )
-        .style
-        .display =
-
-            solved
-
-            ?
-
-            "block"
-
-            :
-
-            "none";
-
-
-
-    document
-        .getElementById(
-            "evidenceCode"
-        )
-        .disabled =
-
-            solved;
-
-
-
-    document
-        .getElementById(
-            "submitEvidenceButton"
-        )
-        .disabled =
-
-            solved;
-
-
-
-    if (!solved) {
-
-
-        setTimeout(
-
-            function() {
-
-
-                document
-                    .getElementById(
-                        "evidenceCode"
-                    )
-                    .focus();
-
-
-            },
-
-            150
-
-        );
-
-
-    }
-
-
-}
-
-
-
-/* =====================================
-   CHECK EVIDENCE 001
-===================================== */
-
-
-function submitEvidence() {
-
+        getProgress() >= 1;
 
     const input =
+        document.getElementById("evidenceCode001");
 
-        document
-            .getElementById(
-                "evidenceCode"
-            );
+    const button =
+        document.getElementById("submitEvidenceButton001");
 
+    const acceptedBox =
+        document.getElementById("evidenceAccepted001");
+
+    const message =
+        document.getElementById("evidenceMessage001");
+
+    input.disabled = solved;
+    button.disabled = solved;
+    acceptedBox.style.display =
+        solved ? "block" : "none";
+
+    if (solved) {
+
+        message.style.color = "#7dff9f";
+
+        message.textContent =
+            "✓ ACCESS KEY PREVIOUSLY CONFIRMED";
+
+    } else {
+
+        input.value = "";
+        message.textContent = "";
+
+        setTimeout(function() {
+            input.focus();
+        }, 150);
+    }
+}
+
+function submitEvidence001() {
+
+    const input =
+        document.getElementById("evidenceCode001");
+
+    const button =
+        document.getElementById("submitEvidenceButton001");
+
+    const message =
+        document.getElementById("evidenceMessage001");
+
+    const acceptedBox =
+        document.getElementById("evidenceAccepted001");
 
     const answer =
-
         input
             .value
             .trim()
             .toUpperCase()
-            .replace(
-                /[^A-Z]/g,
-                ""
-            );
+            .replace(/[^A-Z]/g, "");
 
+    if (answer === "VAULT") {
 
-    const message =
-
-        document
-            .getElementById(
-                "evidenceMessage"
-            );
-
-
-
-    if (
-        answer ===
-        "VAULT"
-    ) {
-
-
-        message.style.color =
-            "#7dff9f";
-
+        message.style.color = "#7dff9f";
 
         message.textContent =
             "✓ ACCESS KEY CONFIRMED";
 
+        setProgress(1);
 
-        /*
-        Evidence 001 solved.
-        Envelope 002 unlocks.
-        */
+        input.disabled = true;
+        button.disabled = true;
 
+        acceptedBox.style.display = "block";
 
-        setProgress(
-            1
-        );
+        acceptedBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
 
+    } else {
 
-        input.disabled =
-            true;
+        message.style.color = "#ff6666";
 
+        message.textContent =
+            answer
+                ? "⛔ EVIDENCE REJECTED // INVALID ACCESS KEY"
+                : "⚠ NO ACCESS KEY DETECTED.";
 
-        document
-            .getElementById(
-                "submitEvidenceButton"
-            )
-            .disabled =
-                true;
-
-
-        document
-            .getElementById(
-                "evidenceAccepted"
-            )
-            .style
-            .display =
-                "block";
-
-
-        document
-            .getElementById(
-                "evidenceAccepted"
-            )
-            .scrollIntoView({
-
-                behavior:
-                    "smooth",
-
-                block:
-                    "center"
-
-            });
-
-
-    }
-
-    else {
-
-
-        message.style.color =
-            "#ff6666";
-
-
-        if (answer) {
-
-
-            message.textContent =
-                "⛔ EVIDENCE REJECTED // INVALID ACCESS KEY";
-
-
-        }
-
-        else {
-
-
-            message.textContent =
-                "⚠ NO ACCESS KEY DETECTED.";
-
-
-        }
-
-
-        input.value =
-            "";
-
-
+        input.value = "";
         input.focus();
-
-
     }
-
-
 }
 
+/* =====================================
+   ENVELOPE 002
+===================================== */
 
+function openEvidence002() {
+
+    if (getProgress() < 1) {
+        showDashboard();
+        return;
+    }
+
+    setScreen("evidence002");
+
+    const solved =
+        getProgress() >= 2;
+
+    const input =
+        document.getElementById("evidenceCode002");
+
+    const button =
+        document.getElementById("submitEvidenceButton002");
+
+    const acceptedBox =
+        document.getElementById("evidenceAccepted002");
+
+    const message =
+        document.getElementById("evidenceMessage002");
+
+    input.disabled = solved;
+    button.disabled = solved;
+    acceptedBox.style.display =
+        solved ? "block" : "none";
+
+    if (solved) {
+
+        message.style.color = "#7dff9f";
+
+        message.textContent =
+            "✓ IDENTIFICATION KEY PREVIOUSLY CONFIRMED";
+
+    } else {
+
+        input.value = "";
+        message.textContent = "";
+
+        setTimeout(function() {
+            input.focus();
+        }, 150);
+    }
+}
+
+function submitEvidence002() {
+
+    const input =
+        document.getElementById("evidenceCode002");
+
+    const button =
+        document.getElementById("submitEvidenceButton002");
+
+    const message =
+        document.getElementById("evidenceMessage002");
+
+    const acceptedBox =
+        document.getElementById("evidenceAccepted002");
+
+    const answer =
+        input
+            .value
+            .trim()
+            .toUpperCase()
+            .replace(/[^A-Z]/g, "");
+
+    if (answer === "SANTACLAUS") {
+
+        message.style.color = "#7dff9f";
+
+        message.textContent =
+            "✓ COLLEAGUE INTELLIGENCE CONFIRMED";
+
+        setProgress(2);
+
+        input.disabled = true;
+        button.disabled = true;
+
+        acceptedBox.style.display = "block";
+
+        acceptedBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    } else {
+
+        message.style.color = "#ff6666";
+
+        message.textContent =
+            answer
+                ? "⛔ EVIDENCE REJECTED // INVALID IDENTIFICATION KEY"
+                : "⚠ NO IDENTIFICATION KEY DETECTED.";
+
+        input.value = "";
+        input.focus();
+    }
+}
 
 /* =====================================
    LOCK TERMINAL
 ===================================== */
 
+function lockTerminal() {
 
-function logout() {
+    currentAgent = "";
+    photoAvailable = false;
 
+    document.getElementById("secretCode").value = "";
 
-    currentAgent =
-        "";
-
-
-    photoAvailable =
-        false;
-
-
-    document
-        .getElementById(
-            "secretCode"
-        )
-        .value =
-            "";
-
-
-    setScreen(
-        "landing"
-    );
-
-
+    setScreen("landing");
 }
-
-
 
 /* =====================================
    ENTER KEY SUPPORT
 ===================================== */
 
+document
+    .getElementById("secretCode")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            event.preventDefault();
+            verifyIdentity();
+        }
+    });
 
 document
-    .getElementById(
-        "secretCode"
-    )
-    .addEventListener(
+    .getElementById("evidenceCode001")
+    .addEventListener("keydown", function(event) {
 
-        "keydown",
-
-        function(event) {
-
-
-            if (
-                event.key ===
-                "Enter"
-            ) {
-
-
-                verifyIdentity();
-
-
-            }
-
-
+        if (event.key === "Enter") {
+            event.preventDefault();
+            submitEvidence001();
         }
-
-    );
-
-
+    });
 
 document
-    .getElementById(
-        "evidenceCode"
-    )
-    .addEventListener(
+    .getElementById("evidenceCode002")
+    .addEventListener("keydown", function(event) {
 
-        "keydown",
-
-        function(event) {
-
-
-            if (
-                event.key ===
-                "Enter"
-            ) {
-
-
-                submitEvidence();
-
-
-            }
-
-
+        if (event.key === "Enter") {
+            event.preventDefault();
+            submitEvidence002();
         }
-
-    );
-
+    });
 
 </script>
 
-
 </body>
-
 </html>
