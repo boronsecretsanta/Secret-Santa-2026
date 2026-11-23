@@ -23,7 +23,9 @@
             align-items: center;
         }
 
-        /* SNOW */
+        /* =========================
+           SNOW
+           ========================= */
 
         .snow {
             position: fixed;
@@ -44,7 +46,9 @@
             }
         }
 
-        /* MAIN DESK */
+        /* =========================
+           MAIN DESK
+           ========================= */
 
         .desk {
             position: relative;
@@ -83,7 +87,9 @@
             letter-spacing: 2px;
         }
 
-        /* CASE FILE */
+        /* =========================
+           CASE FILE
+           ========================= */
 
         .case-file {
             position: relative;
@@ -138,8 +144,6 @@
             margin-bottom: 23px;
         }
 
-        /* CLASSIFIED STAMP */
-
         .classified {
             position: absolute;
             top: 120px;
@@ -154,8 +158,6 @@
             transform: rotate(11deg);
             opacity: .78;
         }
-
-        /* CASE INFO */
 
         .case-info {
             border-top: 2px solid #12291e;
@@ -231,7 +233,9 @@
             margin: 16px 0;
         }
 
-        /* BUTTONS */
+        /* =========================
+           BUTTONS
+           ========================= */
 
         .button-container {
             text-align: center;
@@ -262,7 +266,9 @@
             box-shadow: 0 2px 0 #501010;
         }
 
-        /* SECURITY SCREEN */
+        /* =========================
+           SECURITY SCREEN
+           ========================= */
 
         .security-screen {
             position: fixed;
@@ -373,7 +379,9 @@
             margin-top: 25px;
         }
 
-        /* ACCESS GRANTED */
+        /* =========================
+           ACCESS GRANTED
+           ========================= */
 
         .granted {
             position: fixed;
@@ -422,17 +430,282 @@
             color: #77705e;
         }
 
+        /* =========================
+           EVIDENCE 001
+           ========================= */
+
+        .evidence-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            padding: 40px;
+            background:
+                radial-gradient(circle at 50% 20%, rgba(22,43,56,.9), rgba(2,7,12,.99) 72%),
+                #02070c;
+        }
+
+        .evidence-folder {
+            position: relative;
+            width: 930px;
+            min-height: 650px;
+            padding: 24px;
+            background: #8f754a;
+            box-shadow: 0 35px 80px rgba(0,0,0,.65);
+            transform: rotate(-.5deg);
+        }
+
+        .evidence-folder-tab {
+            position: absolute;
+            top: -38px;
+            left: 0;
+            width: 330px;
+            height: 40px;
+            padding: 13px 22px;
+            border-radius: 6px 6px 0 0;
+            background: #8f754a;
+            color: #362a18;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .evidence-document {
+            position: relative;
+            min-height: 600px;
+            padding: 45px 65px 40px;
+            background:
+                linear-gradient(rgba(245,239,218,.97), rgba(231,222,194,.98)),
+                #e9dfc2;
+            color: #25251f;
+            box-shadow:
+                0 12px 35px rgba(0,0,0,.35),
+                inset 0 0 40px rgba(75,55,20,.08);
+        }
+
+        .evidence-document::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(60,50,30,.18);
+            pointer-events: none;
+        }
+
+        .evidence-top-line {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #26352c;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #465148;
+        }
+
+        .evidence-number {
+            margin-top: 28px;
+            color: #851f1f;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .evidence-title {
+            margin: 8px 0 5px;
+            font-family: Georgia, serif;
+            font-size: 29px;
+            letter-spacing: 2px;
+            color: #17281e;
+        }
+
+        .evidence-subtitle {
+            margin-bottom: 25px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: #687068;
+        }
+
+        .evidence-stamp {
+            position: absolute;
+            top: 92px;
+            right: 42px;
+            padding: 7px 12px;
+            border: 4px solid #9b2020;
+            color: #9b2020;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            opacity: .72;
+            transform: rotate(9deg);
+        }
+
+        .evidence-briefing {
+            padding: 18px 22px;
+            border-left: 5px solid #203b2c;
+            background: rgba(255,255,255,.25);
+            font-family: Georgia, serif;
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+        .evidence-briefing strong {
+            display: block;
+            margin-bottom: 8px;
+            font-family: "Courier New", monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #182e21;
+        }
+
+        .assignment-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-top: 25px;
+        }
+
+        .assignment-steps {
+            padding: 19px 22px;
+            border: 1px dashed #81765d;
+            background: rgba(255,255,255,.18);
+        }
+
+        .assignment-steps h3 {
+            margin: 0 0 13px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #722020;
+        }
+
+        .assignment-steps ol {
+            margin: 0;
+            padding-left: 22px;
+            font-family: Georgia, serif;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .code-entry {
+            padding: 19px 22px;
+            border: 1px solid rgba(38,53,44,.45);
+            background: #17231c;
+            color: #8dffa8;
+        }
+
+        .code-entry label {
+            display: block;
+            margin-bottom: 11px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .evidence-input {
+            width: 100%;
+            margin-bottom: 13px;
+            padding: 14px;
+            border: 1px solid #467a55;
+            outline: none;
+            background: #050b07;
+            color: #8dffa8;
+            font-family: "Courier New", monospace;
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .evidence-input:focus {
+            border-color: #82ffa3;
+            box-shadow: 0 0 12px rgba(100,255,145,.15);
+        }
+
+        .submit-evidence {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #6fd78b;
+            background: #145b2d;
+            color: #d7ffe1;
+            cursor: pointer;
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .submit-evidence:hover {
+            background: #19743a;
+        }
+
+        #evidenceMessage {
+            min-height: 20px;
+            margin-top: 12px;
+            text-align: center;
+            font-size: 11px;
+            line-height: 1.5;
+            letter-spacing: 1px;
+        }
+
+        .evidence-accepted {
+            display: none;
+            margin-top: 24px;
+            padding: 19px 22px;
+            border: 2px solid #286039;
+            background: rgba(24,83,44,.1);
+        }
+
+        .evidence-accepted h3 {
+            margin: 0 0 12px;
+            color: #1f6737;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        .evidence-accepted p {
+            margin: 8px 0;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .location-clue {
+            margin-top: 14px;
+            padding: 15px;
+            border-left: 5px solid #922626;
+            background: rgba(146,38,38,.08);
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .evidence-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 22px;
+            color: #736c5b;
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- MAIN CASE FILE -->
+    <!-- =========================
+         MAIN CASE FILE
+         ========================= -->
 
     <div class="desk">
 
         <div class="folder">
-            <div class="folder-tab">CASE SS-2026</div>
+            <div class="folder-tab">
+                CASE SS-2026
+            </div>
         </div>
 
         <main class="case-file">
@@ -456,9 +729,11 @@
             <section class="case-info">
 
                 <div>
-                    <span class="label">CASE FILE:</span> SS-2026
+                    <span class="label">CASE FILE:</span>
+                    SS-2026
                     <br>
-                    <span class="label">OPERATION:</span> SECRET SANTA
+                    <span class="label">OPERATION:</span>
+                    SECRET SANTA
                 </div>
 
                 <div>
@@ -522,11 +797,13 @@
             </div>
 
             <div class="button-container">
-
-                <button class="red-button" onclick="beginInvestigation()">
+                <button
+                    class="red-button"
+                    type="button"
+                    onclick="beginInvestigation()"
+                >
                     ▶ BEGIN INVESTIGATION
                 </button>
-
             </div>
 
             <div class="file-number">
@@ -542,7 +819,9 @@
     </div>
 
 
-    <!-- IDENTITY VERIFICATION -->
+    <!-- =========================
+         IDENTITY VERIFICATION
+         ========================= -->
 
     <div id="securityScreen" class="security-screen">
 
@@ -595,12 +874,16 @@
 
             <button
                 class="verify-button"
+                type="button"
                 onclick="verifyIdentity()"
             >
                 VERIFY IDENTITY
             </button>
 
-            <div id="securityMessage"></div>
+            <div
+                id="securityMessage"
+                aria-live="polite"
+            ></div>
 
             <div class="connection">
                 ● SECURE CONNECTION // NPIS ENCRYPTION ACTIVE
@@ -611,7 +894,9 @@
     </div>
 
 
-    <!-- ACCESS GRANTED SCREEN -->
+    <!-- =========================
+         ACCESS GRANTED
+         ========================= -->
 
     <div id="grantedScreen" class="granted">
 
@@ -623,7 +908,169 @@
                 IDENTITY CONFIRMED
             </p>
 
-            <div class="blink">█</div>
+            <div class="blink">
+                █
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         EVIDENCE 001
+         ========================= -->
+
+    <div id="evidenceScreen" class="evidence-screen">
+
+        <div class="evidence-folder">
+
+            <div class="evidence-folder-tab">
+                EVIDENCE FILE 001 // ACTIVE
+            </div>
+
+            <main class="evidence-document">
+
+                <div class="evidence-top-line">
+                    <span>NORTH POLE INTELLIGENCE SERVICE</span>
+                    <span>CASE SS-2026</span>
+                </div>
+
+                <div class="evidence-number">
+                    EVIDENCE 001
+                </div>
+
+                <h2 class="evidence-title">
+                    THE SUSPECT PHOTOGRAPHS
+                </h2>
+
+                <div class="evidence-subtitle">
+                    PHYSICAL EVIDENCE RECOVERY AND ANALYSIS
+                </div>
+
+                <div class="evidence-stamp">
+                    EYES ONLY
+                </div>
+
+                <section class="evidence-briefing">
+
+                    <strong>
+                        EVIDENCE ANALYSIS REQUIRED
+                    </strong>
+
+                    Locate and open
+                    <b>BLACK EVIDENCE ENVELOPE 001</b>.
+
+                    <br><br>
+
+                    Inside the envelope, you will find five intercepted
+                    photographs. Each photograph contains an NPIS
+                    identification number on the front and a classified
+                    letter on the reverse.
+
+                </section>
+
+                <div class="assignment-box">
+
+                    <section class="assignment-steps">
+
+                        <h3>
+                            // FIELD ASSIGNMENT
+                        </h3>
+
+                        <ol>
+                            <li>Solve the equation on each photograph.</li>
+                            <li>Arrange the photographs from lowest to highest.</li>
+                            <li>Turn over the photographs.</li>
+                            <li>Read the recovered letters in the same order.</li>
+                            <li>Enter the five-letter access key.</li>
+                        </ol>
+
+                    </section>
+
+                    <section class="code-entry">
+
+                        <label for="evidenceCode">
+                            RECOVERED ACCESS KEY
+                        </label>
+
+                        <input
+                            id="evidenceCode"
+                            class="evidence-input"
+                            type="text"
+                            maxlength="5"
+                            autocomplete="off"
+                            spellcheck="false"
+                            placeholder="_____"
+                        >
+
+                        <button
+                            id="submitEvidenceButton"
+                            class="submit-evidence"
+                            type="button"
+                            onclick="submitEvidence()"
+                        >
+                            SUBMIT EVIDENCE
+                        </button>
+
+                        <div
+                            id="evidenceMessage"
+                            aria-live="polite"
+                        ></div>
+
+                    </section>
+
+                </div>
+
+
+                <!-- Only shown after VAULT -->
+
+                <section
+                    id="evidenceAccepted"
+                    class="evidence-accepted"
+                >
+
+                    <h3>
+                        ✓ EVIDENCE ACCEPTED
+                    </h3>
+
+                    <p>
+                        Decryption key
+                        <strong>VAULT</strong>
+                        confirmed.
+                    </p>
+
+                    <p>
+                        Intelligence analysis indicates that
+                        <strong>
+                            VAULT does not refer to an actual vault.
+                        </strong>
+                    </p>
+
+                    <div class="location-clue">
+
+                        Office surveillance has detected unusual activity
+                        near the place where confidential documents go
+                        to disappear.
+
+                        <br><br>
+
+                        Recover
+                        <strong>
+                            BLACK EVIDENCE ENVELOPE 002
+                        </strong>
+                        and await further instructions.
+
+                    </div>
+
+                </section>
+
+                <div class="evidence-footer">
+                    <span>NPIS / EVIDENCE 001 / SS-2026</span>
+                    <span>UNAUTHORIZED DISCLOSURE PROHIBITED</span>
+                </div>
+
+            </main>
 
         </div>
 
@@ -632,11 +1079,9 @@
 
     <script>
 
-        /*
-        =====================================
-        SNOW
-        =====================================
-        */
+        /* =========================
+           SNOW
+           ========================= */
 
         function createSnow() {
 
@@ -644,10 +1089,11 @@
 
             for (let i = 0; i < snowflakes; i++) {
 
-                const snow = document.createElement("div");
+                const snow =
+                    document.createElement("div");
 
                 snow.className = "snow";
-                snow.innerHTML = "❄";
+                snow.textContent = "❄";
 
                 snow.style.left =
                     Math.random() * 100 + "vw";
@@ -671,56 +1117,62 @@
         createSnow();
 
 
-        /*
-        =====================================
-        BEGIN INVESTIGATION
-        =====================================
-        */
+        /* =========================
+           BEGIN INVESTIGATION
+           ========================= */
 
         function beginInvestigation() {
 
-            document.getElementById("securityScreen")
+            document
+                .getElementById("securityScreen")
                 .style.display = "flex";
 
-            setTimeout(() => {
-                document.getElementById("agentName").focus();
+            setTimeout(function() {
+
+                document
+                    .getElementById("agentName")
+                    .focus();
+
             }, 250);
         }
 
 
-        /*
-        =====================================
-        IDENTITY VERIFICATION
-        =====================================
+        /* =========================
+           IDENTITY VERIFICATION
+           =========================
 
-        TEMPORARY ACCESS CODE:
+           TEMPORARY ACCESS CODE:
 
-        CHRISTMAS-2026
+           CHRISTMAS-2026
 
-        Replace this later with your real
-        secret code.
-        =====================================
-        */
+           Change this later to your
+           actual secret access code.
+           ========================= */
 
-        async function verifyIdentity() {
+        function verifyIdentity() {
 
             const agentName =
-                document.getElementById("agentName")
-                .value.trim();
+                document
+                    .getElementById("agentName")
+                    .value
+                    .trim();
 
             const enteredCode =
-                document.getElementById("secretCode")
-                .value.trim();
+                document
+                    .getElementById("secretCode")
+                    .value
+                    .trim();
 
             const message =
-                document.getElementById("securityMessage");
+                document
+                    .getElementById("securityMessage");
 
 
             if (agentName === "") {
 
                 message.style.color = "#ff7373";
 
-                message.innerHTML =
+                message.textContent =
                     "⚠ AGENT IDENTIFICATION REQUIRED.";
 
                 return;
@@ -731,7 +1183,7 @@
 
                 message.style.color = "#ff7373";
 
-                message.innerHTML =
+                message.textContent =
                     "⚠ ACCESS CODE REQUIRED.";
 
                 return;
@@ -739,11 +1191,7 @@
 
 
             /*
-            TEMPORARY CODE CHECK.
-
-            We will replace this with a
-            SHA-256 hash once the final
-            secret code has been chosen.
+               TEMPORARY ACCESS CODE
             */
 
             const correctCode =
@@ -755,121 +1203,290 @@
                 correctCode
             ) {
 
-                message.style.color = "#75ff9a";
+                message.style.color =
+                    "#75ff9a";
 
-                message.innerHTML =
+                message.textContent =
                     "✓ CREDENTIALS ACCEPTED";
 
 
-                setTimeout(() => {
+                setTimeout(function() {
 
-                    document.getElementById("securityScreen")
+                    document
+                        .getElementById("securityScreen")
                         .style.display = "none";
 
                     showAccessGranted(agentName);
 
                 }, 900);
 
-            }
+            } else {
 
-            else {
+                message.style.color =
+                    "#ff5f5f";
 
-                message.style.color = "#ff5f5f";
-
-                message.innerHTML =
+                message.textContent =
                     "⛔ ACCESS DENIED // INVALID CREDENTIALS";
 
-                document.getElementById("secretCode")
+                document
+                    .getElementById("secretCode")
                     .value = "";
 
-                document.getElementById("secretCode")
+                document
+                    .getElementById("secretCode")
                     .focus();
             }
         }
 
 
         /*
-        Allow ENTER to submit access code
+           ENTER submits identity
         */
 
         document
             .getElementById("secretCode")
-            .addEventListener("keypress", function(event) {
+            .addEventListener(
+                "keydown",
+                function(event) {
 
-                if (event.key === "Enter") {
-                    verifyIdentity();
+                    if (event.key === "Enter") {
+
+                        event.preventDefault();
+
+                        verifyIdentity();
+                    }
                 }
+            );
 
-            });
 
-
-        /*
-        =====================================
-        ACCESS GRANTED
-        =====================================
-        */
+        /* =========================
+           ACCESS GRANTED SEQUENCE
+           ========================= */
 
         function showAccessGranted(agentName) {
 
             const screen =
-                document.getElementById("grantedScreen");
+                document.getElementById(
+                    "grantedScreen"
+                );
 
             const text =
-                document.getElementById("grantedText");
+                document.getElementById(
+                    "grantedText"
+                );
 
-            screen.style.display = "flex";
+
+            screen.style.display =
+                "flex";
 
 
-            text.innerHTML =
+            text.textContent =
                 "IDENTITY CONFIRMED";
 
 
-            setTimeout(() => {
+            setTimeout(function() {
 
-                text.innerHTML =
+                text.textContent =
                     "WELCOME, AGENT " +
                     agentName.toUpperCase();
 
             }, 900);
 
 
-            setTimeout(() => {
+            setTimeout(function() {
 
-                text.innerHTML =
+                text.textContent =
                     "RETRIEVING CASE SS-2026...";
 
             }, 1900);
 
 
-            setTimeout(() => {
+            setTimeout(function() {
 
-                text.innerHTML =
+                text.textContent =
                     "DECRYPTING CLASSIFIED EVIDENCE...";
 
             }, 2900);
 
 
-            setTimeout(() => {
+            setTimeout(function() {
 
-                text.innerHTML =
-                    "CASE FILE UNLOCKED.";
+                text.textContent =
+                    "EVIDENCE FILE 001 LOCATED.";
 
             }, 3900);
 
 
-            /*
-            Puzzle #1 will eventually
-            open here.
-            */
+            setTimeout(function() {
 
-            setTimeout(() => {
-
-                text.innerHTML =
-                    "INVESTIGATION READY.";
+                text.textContent =
+                    "OPENING CLASSIFIED EVIDENCE FILE...";
 
             }, 4700);
 
+
+            setTimeout(function() {
+
+                screen.style.display =
+                    "none";
+
+                openEvidence001();
+
+            }, 5600);
         }
+
+
+        /* =========================
+           OPEN EVIDENCE 001
+           ========================= */
+
+        function openEvidence001() {
+
+            const evidenceScreen =
+                document.getElementById(
+                    "evidenceScreen"
+                );
+
+            evidenceScreen.style.display =
+                "flex";
+
+
+            setTimeout(function() {
+
+                document
+                    .getElementById(
+                        "evidenceCode"
+                    )
+                    .focus();
+
+            }, 300);
+        }
+
+
+        /* =========================
+           CHECK EVIDENCE 001
+           ========================= */
+
+        function submitEvidence() {
+
+            const input =
+                document.getElementById(
+                    "evidenceCode"
+                );
+
+            const message =
+                document.getElementById(
+                    "evidenceMessage"
+                );
+
+            const acceptedBox =
+                document.getElementById(
+                    "evidenceAccepted"
+                );
+
+            const submitButton =
+                document.getElementById(
+                    "submitEvidenceButton"
+                );
+
+
+            /*
+               Normalize answer:
+
+               vault
+               VAULT
+               Vault
+
+               are all accepted.
+            */
+
+            const answer =
+                input.value
+                    .trim()
+                    .toUpperCase()
+                    .replace(/[^A-Z]/g, "");
+
+
+            if (answer === "") {
+
+                message.style.color =
+                    "#ff8b8b";
+
+                message.textContent =
+                    "⚠ NO ACCESS KEY DETECTED.";
+
+                input.focus();
+
+                return;
+            }
+
+
+            if (answer === "VAULT") {
+
+                message.style.color =
+                    "#7dff9f";
+
+                message.textContent =
+                    "✓ ACCESS KEY CONFIRMED";
+
+
+                input.disabled = true;
+
+                submitButton.disabled = true;
+
+                submitButton.style.opacity =
+                    ".45";
+
+                submitButton.style.cursor =
+                    "not-allowed";
+
+
+                acceptedBox.style.display =
+                    "block";
+
+
+                setTimeout(function() {
+
+                    acceptedBox.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                }, 250);
+
+            } else {
+
+                message.style.color =
+                    "#ff6666";
+
+                message.textContent =
+                    "⛔ EVIDENCE REJECTED // INVALID ACCESS KEY";
+
+                input.value = "";
+
+                input.focus();
+            }
+        }
+
+
+        /*
+           ENTER submits Evidence 001
+        */
+
+        document
+            .getElementById("evidenceCode")
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+
+                        event.preventDefault();
+
+                        submitEvidence();
+                    }
+                }
+            );
 
     </script>
 
