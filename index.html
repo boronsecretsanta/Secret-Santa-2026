@@ -1694,6 +1694,9 @@ button:disabled {
 
             <br><br>
 
+            efore you rush to search around,
+            look for the signs that can’t be found.
+            
             <br>
 
             A locked lck may hide a clue,
@@ -1796,7 +1799,7 @@ button:disabled {
 
             <p>
 
-                Decryption key
+                Recovered identification key
 
                 <strong>
                     VAULT
@@ -1807,32 +1810,22 @@ button:disabled {
             </p>
 
             <p>
-
-                Intelligence analysis indicates that
-
-                <strong>
-                    VAULT does not refer to an actual vault.
-                </strong>
-
+                You found the missing link.
             </p>
 
-            <div class="location-result">
+            <div
+                class="location-result"
+                style="border-left-color:#286039;"
+            >
 
-                Office surveillance detected unusual activity near
-                the place where confidential documents go to disappear.
+                ATTENTION TO DETAILS: CONFIRMED.
 
                 <br><br>
 
-                Recover
-
-                <strong>
-                    ELF ENVELOPE 002
-                </strong>
-
-                and await further instructions.
+                ELF ENVELOPE 002 HAS BEEN UNLOCKED.
 
             </div>
-
+ 
             <div
                 class="center"
                 style="margin-top:18px;"
@@ -2699,7 +2692,7 @@ function showAccessGranted() {
                     .toUpperCase();
 
         },
-        700
+        2500
     );
 
     setTimeout(
@@ -2709,7 +2702,7 @@ function showAccessGranted() {
                 "LOADING CASE DASHBOARD...";
 
         },
-        1600
+        2500
     );
 
     setTimeout(
@@ -3790,14 +3783,14 @@ function scheduleMorseSignal() {
 
 
     /*
-    One Morse unit is 240 milliseconds.
+    One Morse unit is 450 milliseconds.
 
-    Dot: 240 ms
-    Dash: 720 ms
+    Dot: 450 ms
+    Dash: 1200 ms
     */
 
     const unitDuration =
-        240;
+        450;
 
 
     const startTransmission =
@@ -3850,7 +3843,7 @@ function scheduleMorseSignal() {
 
 
             /*
-            Wait 3.5 seconds after the
+            Wait 5 seconds after the
             transmission, then repeat it.
             */
 
@@ -3870,7 +3863,7 @@ function scheduleMorseSignal() {
                     },
 
                     cursor +
-                    3500
+                    5000
 
                 );
 
