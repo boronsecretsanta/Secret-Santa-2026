@@ -2432,29 +2432,29 @@ button:disabled {
         <div class="evidence-briefing">
             <strong>INTERCEPTED AUDIO TRANSMISSIONS</strong><br><br>
             NPIS recovered three incomplete music transmissions. At first, only five seconds of each track can be heard. Starting on 7 December 2026 at 12:00, one additional second is released every full hour.<br><br>
-            Identify all three songs. Replaying a transmission is permitted, but each playback stops when the currently available signal window ends.
+            Identify all three s. Replaying a transmission is permitted, but each playback stops when the currently available signal window ends.
         </div>
         <div class="audio-grid">
             <section class="audio-card">
                 <h3>TRANSMISSION 01</h3>
                 <button id="playTrack01" class="audio-play-button" type="button" onclick="playTimedTrack(0)">▶ PLAY TRANSMISSION</button>
                 <div id="audioTime01" class="audio-time"></div>
-                <input id="songAnswer01" class="audio-answer" type="text" autocomplete="off" placeholder="Enter song title">
-                <audio id="audioTrack01" preload="metadata" src="audio/song-01.mp3"></audio>
+                <input id="Answer01" class="audio-answer" type="text" autocomplete="off" placeholder="Enter  title">
+                <audio id="audioTrack01" preload="metadata" src="audio/-01.mp3"></audio>
             </section>
             <section class="audio-card">
                 <h3>TRANSMISSION 02</h3>
                 <button id="playTrack02" class="audio-play-button" type="button" onclick="playTimedTrack(1)">▶ PLAY TRANSMISSION</button>
                 <div id="audioTime02" class="audio-time"></div>
-                <input id="songAnswer02" class="audio-answer" type="text" autocomplete="off" placeholder="Enter song title">
-                <audio id="audioTrack02" preload="metadata" src="audio/song-02.mp3"></audio>
+                <input id="Answer02" class="audio-answer" type="text" autocomplete="off" placeholder="Enter  title">
+                <audio id="audioTrack02" preload="metadata" src="audio/-02.mp3"></audio>
             </section>
             <section class="audio-card">
                 <h3>TRANSMISSION 03</h3>
                 <button id="playTrack03" class="audio-play-button" type="button" onclick="playTimedTrack(2)">▶ PLAY TRANSMISSION</button>
                 <div id="audioTime03" class="audio-time"></div>
-                <input id="songAnswer03" class="audio-answer" type="text" autocomplete="off" placeholder="Enter song title">
-                <audio id="audioTrack03" preload="metadata" src="audio/song-03.mp3"></audio>
+                <input id="Answer03" class="audio-answer" type="text" autocomplete="off" placeholder="Enter  title">
+                <audio id="audioTrack03" preload="metadata" src="audio/-03.mp3"></audio>
             </section>
         </div>
         <div class="center" style="margin-top:22px;">
@@ -2623,7 +2623,11 @@ Every full day after that: + 0.5 seconds
 */
 
 const MUSIC_RELEASE_START = new Date(2026, 11, 7, 12, 0, 0);
-const MUSIC_INITIAL_SECONDS = 0.5;
+const MUSIC_INITIAL_SECONDS = [
+    0.5,  // Song 1 - Last Christmas
+    1.0,  // Song 2 - It's the Most Wonderful Time of the Year
+    1.0   // Song 3 - All I Want for Christmas Is You
+];
 const MUSIC_SECONDS_PER_DAY = 0.5;
 
 /* Replace these answers when the physical puzzles are final. */
@@ -4520,33 +4524,20 @@ function normalizeAnswer(value) {
     return value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
 
-function getAvailableAudioSeconds() {
+function getAvailableAudioSeconds(trackIndex) {
 
-    const now =
-        new Date();
+    const now = new Date();
 
     const elapsedMilliseconds =
         now.getTime() -
         MUSIC_RELEASE_START.getTime();
 
-
-    /*
-    Before the release date:
-    0.5 second is available.
-    */
+    const initialSeconds =
+        MUSIC_INITIAL_SECONDS[trackIndex];
 
     if (elapsedMilliseconds <= 0) {
-
-        return MUSIC_INITIAL_SECONDS;
-
+        return initialSeconds;
     }
-
-
-    /*
-    Calculate the number of COMPLETE
-    24-hour periods since
-    7 December 2026 at 12:00.
-    */
 
     const fullDaysPassed =
         Math.floor(
@@ -4559,18 +4550,11 @@ function getAvailableAudioSeconds() {
             )
         );
 
-
-    /*
-    Every full day unlocks
-    another 0.5 second.
-    */
-
     return (
-        MUSIC_INITIAL_SECONDS +
+        initialSeconds +
         fullDaysPassed *
         MUSIC_SECONDS_PER_DAY
     );
-
 }
 
 function stopAllAudio() {
@@ -4586,11 +4570,23 @@ function stopAllAudio() {
 }
 
 function updateAudioAvailability() {
-    const seconds = getAvailableAudioSeconds();
-    for (let i = 1; i <= 3; i++) {
-        const label = document.getElementById("audioTime0" + i);
+
+    for (let i = 0; i < 3; i++) {
+
+        const seconds =
+            getAvailableAudioSeconds(i);
+
+        const label =
+            document.getElementById(
+                "audioTime0" + (i + 1)
+            );
+
         if (label) {
-            label.textContent = "AVAILABLE SIGNAL LENGTH: " + seconds + " SECONDS";
+
+            label.textContent =
+                "AVAILABLE SIGNAL LENGTH: " +
+                seconds.toFixed(1) +
+                " SECONDS";
         }
     }
 }
