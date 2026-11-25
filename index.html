@@ -4605,6 +4605,14 @@ function playTimedTrack(trackIndex) {
     const playPromise = audio.play();
     if (playPromise) {
         playPromise.catch(function() {
+/* =====================================
+   Verbergen als fout is gevonden
+===================================== */    
+            console.error(
+        "NPIS AUDIO ERROR:",
+        error
+    );
+            
             document.getElementById("evidenceMessage004").textContent = "⚠ AUDIO FILE COULD NOT BE PLAYED.";
         });
     }
