@@ -2611,15 +2611,20 @@ let morseTimeouts = [];
    Replace these three values with the actual song titles.
    Spaces, punctuation and capitalization are ignored. */
 const SONG_ANSWERS = [
-    "REPLACE WITH SONG 1 TITLE",
-    "REPLACE WITH SONG 2 TITLE",
-    "REPLACE WITH SONG 3 TITLE"
+    "Last Christmas",
+    "It's the Most Wonderful Time of the Year",
+    "All I Want for Christmas Is You"
 ];
 
-/* The clips begin at five seconds on 7 December 2026 at 12:00.
-   Every full hour adds one second. */
+/*
+Music puzzle release schedule
+7 December 2026 12:00 = 0.5 seconds 
+Every full day after that: + 0.5 seconds
+*/
+
 const MUSIC_RELEASE_START = new Date(2026, 11, 7, 12, 0, 0);
-const MUSIC_INITIAL_SECONDS = 5;
+const MUSIC_INITIAL_SECONDS = 0.5;
+const MUSIC_SECONDS_PER_DAY = 0.5;
 
 /* Replace these answers when the physical puzzles are final. */
 const MURDOKU_ANSWER = "REPLACE WITH MURDOKU ANSWER";
@@ -4516,9 +4521,56 @@ function normalizeAnswer(value) {
 }
 
 function getAvailableAudioSeconds() {
-    const elapsedMilliseconds = Date.now() - MUSIC_RELEASE_START.getTime();
-    const fullHours = Math.max(0, Math.floor(elapsedMilliseconds / 3600000));
-    return MUSIC_INITIAL_SECONDS + fullHours;
+
+    const now =
+        new Date();
+
+    const elapsedMilliseconds =
+        now.getTime() -
+        MUSIC_RELEASE_START.getTime();
+
+
+    /*
+    Before the release date:
+    0.5 second is available.
+    */
+
+    if (elapsedMilliseconds <= 0) {
+
+        return MUSIC_INITIAL_SECONDS;
+
+    }
+
+
+    /*
+    Calculate the number of COMPLETE
+    24-hour periods since
+    7 December 2026 at 12:00.
+    */
+
+    const fullDaysPassed =
+        Math.floor(
+            elapsedMilliseconds /
+            (
+                24 *
+                60 *
+                60 *
+                1000
+            )
+        );
+
+
+    /*
+    Every full day unlocks
+    another 0.5 second.
+    */
+
+    return (
+        MUSIC_INITIAL_SECONDS +
+        fullDaysPassed *
+        MUSIC_SECONDS_PER_DAY
+    );
+
 }
 
 function stopAllAudio() {
