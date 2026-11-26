@@ -1248,6 +1248,17 @@ button:disabled {
     }
 }
 
+
+/* =====================================
+   ASSIGNMENT 001 SEQUENTIAL ANSWERS
+===================================== */
+.sequence-list { display:grid; gap:12px; margin-top:12px; }
+.sequence-row { display:grid; grid-template-columns:32px 1fr; gap:10px; align-items:center; }
+.sequence-number { color:#8dffa8; font-weight:bold; text-align:center; }
+.sequence-input { width:100%; padding:12px; border:1px solid #467a55; outline:none; background:#050b07; color:#8dffa8; text-transform:uppercase; }
+.sequence-input:disabled { opacity:.72; }
+.sequence-input.correct { border-color:#7dff9f; background:#0c2a16; }
+
 </style>
 
 </head>
@@ -1845,36 +1856,16 @@ button:disabled {
             </div>
 
             <div class="code-box">
-
-                <label for="evidenceCode001">
-                    RECOVERED ACCESS KEY
-                </label>
-
-                <input
-                    id="evidenceCode001"
-                    class="evidence-input"
-                    type="text"
-                    maxlength="5"
-                    autocomplete="off"
-                    spellcheck="false"
-                    placeholder="_____"
-                >
-
-                <button
-                    id="submitEvidenceButton001"
-                    class="green-button full-button"
-                    type="button"
-                    onclick="submitEvidence001()"
-                >
-                    SUBMIT EVIDENCE
-                </button>
-
-                <div
-                    id="evidenceMessage001"
-                    class="message"
-                    aria-live="polite"
-                ></div>
-
+                <label>RECOVERED OBJECT SEQUENCE</label>
+                <div class="sequence-list">
+                    <div class="sequence-row"><div class="sequence-number">01</div><input id="evidence001Answer01" class="sequence-input" type="text" autocomplete="off" spellcheck="false" placeholder="FIRST OBJECT"></div>
+                    <div class="sequence-row"><div class="sequence-number">02</div><input id="evidence001Answer02" class="sequence-input" type="text" autocomplete="off" spellcheck="false" placeholder="LOCKED UNTIL 01 IS CONFIRMED" disabled></div>
+                    <div class="sequence-row"><div class="sequence-number">03</div><input id="evidence001Answer03" class="sequence-input" type="text" autocomplete="off" spellcheck="false" placeholder="LOCKED UNTIL 02 IS CONFIRMED" disabled></div>
+                    <div class="sequence-row"><div class="sequence-number">04</div><input id="evidence001Answer04" class="sequence-input" type="text" autocomplete="off" spellcheck="false" placeholder="LOCKED UNTIL 03 IS CONFIRMED" disabled></div>
+                    <div class="sequence-row"><div class="sequence-number">05</div><input id="evidence001Answer05" class="sequence-input" type="text" autocomplete="off" spellcheck="false" placeholder="LOCKED UNTIL 04 IS CONFIRMED" disabled></div>
+                </div>
+                <button id="submitEvidenceButton001" class="green-button full-button" type="button" style="margin-top:14px;" onclick="submitEvidence001()">SUBMIT ANSWER</button>
+                <div id="evidenceMessage001" class="message" aria-live="polite"></div>
             </div>
 
         </div>
@@ -1890,7 +1881,7 @@ button:disabled {
 
             <p>
 
-                Recovered identification key
+                Recovered object sequence
 
                 <strong>
                     VAULT
@@ -2606,6 +2597,7 @@ let currentAgent = "";
 let photoAvailable = false;
 
 let morseTimeouts = [];
+let evidence001Step = 0;
 
 /* Assignment 004 configuration.
    Replace these three values with the actual song titles.
@@ -3461,210 +3453,94 @@ function loadAgentPhoto() {
    ENVELOPE 001
 ===================================== */
 
-function openEvidence001() {
-
-    if (
-
-        !photoAvailable
-
-        &&
-
-        getProgress() <
-        1
-
-    ) {
-
-        showDashboard();
-
-        return;
-
-    }
-
-
-    setScreen(
-        "evidence001"
-    );
-
-
-    const solved =
-
-        getProgress() >=
-        1;
-
-    const input =
-
-        document
-            .getElementById(
-                "evidenceCode001"
-            );
-
-    const button =
-
-        document
-            .getElementById(
-                "submitEvidenceButton001"
-            );
-
-    const acceptedBox =
-
-        document
-            .getElementById(
-                "evidenceAccepted001"
-            );
-
-    const message =
-
-        document
-            .getElementById(
-                "evidenceMessage001"
-            );
-
-
-    input.disabled =
-        solved;
-
-    button.disabled =
-        solved;
-
-    acceptedBox.style.display =
-
-        solved
-            ?
-        "block"
-            :
-        "none";
-
-
-    if (solved) {
-
-        message.style.color =
-            "#7dff9f";
-
-        message.textContent =
-            "✓ ACCESS KEY PREVIOUSLY CONFIRMED";
-
-    } else {
-
-        input.value =
-            "";
-
-        message.textContent =
-            "";
-
-        setTimeout(
-            function() {
-
-                input.focus();
-
-            },
-            150
-        );
-
-    }
-
+function normalizeEvidence001Answer(value) {
+    return value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
 
+const EVIDENCE001_SEQUENCE = [
+    ["STAFF"],
+    ["DOG"],
+    ["VASE"],
+    ["PADELRACKET", "RACKET"],
+    ["MICROPHONE", "MIC"]
+];
+
+function resetEvidence001Sequence() {
+    evidence001Step = 0;
+    for (let i = 1; i <= 5; i++) {
+        const input = document.getElementById("evidence001Answer0" + i);
+        input.value = "";
+        input.disabled = i !== 1;
+        input.classList.remove("correct");
+    }
+}
+
+function showSolvedEvidence001Sequence() {
+    const values = ["STAFF", "DOG", "VASE", "PADEL RACKET", "MICROPHONE"];
+    evidence001Step = 5;
+    for (let i = 1; i <= 5; i++) {
+        const input = document.getElementById("evidence001Answer0" + i);
+        input.value = values[i - 1];
+        input.disabled = true;
+        input.classList.add("correct");
+    }
+}
+
+function openEvidence001() {
+    if (!photoAvailable && getProgress() < 1) { showDashboard(); return; }
+    setScreen("evidence001");
+    const solved = getProgress() >= 1;
+    const button = document.getElementById("submitEvidenceButton001");
+    const acceptedBox = document.getElementById("evidenceAccepted001");
+    const message = document.getElementById("evidenceMessage001");
+    button.disabled = solved;
+    acceptedBox.style.display = solved ? "block" : "none";
+    if (solved) {
+        showSolvedEvidence001Sequence();
+        message.style.color = "#7dff9f";
+        message.textContent = "✓ OBJECT SEQUENCE PREVIOUSLY CONFIRMED";
+    } else {
+        resetEvidence001Sequence();
+        message.style.color = "#8dffa8";
+        message.textContent = "ANSWER 1 OF 5";
+        setTimeout(function(){ document.getElementById("evidence001Answer01").focus(); },150);
+    }
+}
 
 function submitEvidence001() {
-
-    const input =
-
-        document
-            .getElementById(
-                "evidenceCode001"
-            );
-
-    const button =
-
-        document
-            .getElementById(
-                "submitEvidenceButton001"
-            );
-
-    const message =
-
-        document
-            .getElementById(
-                "evidenceMessage001"
-            );
-
-    const acceptedBox =
-
-        document
-            .getElementById(
-                "evidenceAccepted001"
-            );
-
-    const answer =
-
-        input
-            .value
-            .trim()
-            .toUpperCase()
-            .replace(
-                /[^A-Z]/g,
-                ""
-            );
-
-
-    if (
-        answer ===
-        "VAULT"
-    ) {
-
-        message.style.color =
-            "#7dff9f";
-
-        message.textContent =
-            "✓ ACCESS KEY CONFIRMED";
-
-        setProgress(1);
-
-        input.disabled =
-            true;
-
-        button.disabled =
-            true;
-
-        acceptedBox.style.display =
-            "block";
-
-        acceptedBox.scrollIntoView({
-
-            behavior:
-                "smooth",
-
-            block:
-                "center"
-
-        });
-
-    } else {
-
-        message.style.color =
-            "#ff6666";
-
-        message.textContent =
-
-            answer
-
-                ?
-
-            "⛔ EVIDENCE REJECTED // INVALID ACCESS KEY"
-
-                :
-
-            "⚠ NO ACCESS KEY DETECTED.";
-
-        input.value =
-            "";
-
-        input.focus();
-
+    if (evidence001Step >= 5) return;
+    const input = document.getElementById("evidence001Answer0" + (evidence001Step + 1));
+    const message = document.getElementById("evidenceMessage001");
+    const answer = normalizeEvidence001Answer(input.value);
+    const accepted = EVIDENCE001_SEQUENCE[evidence001Step];
+    if (!answer) {
+        message.style.color = "#ff6666";
+        message.textContent = "⚠ ENTER AN ANSWER BEFORE CONTINUING.";
+        input.focus(); return;
     }
-
+    if (!accepted.includes(answer)) {
+        message.style.color = "#ff6666";
+        message.textContent = "⛔ ANSWER " + (evidence001Step + 1) + " REJECTED // TRY AGAIN";
+        input.value = ""; input.focus(); return;
+    }
+    input.disabled = true;
+    input.classList.add("correct");
+    evidence001Step++;
+    if (evidence001Step < 5) {
+        const next = document.getElementById("evidence001Answer0" + (evidence001Step + 1));
+        next.disabled = false;
+        next.placeholder = "ENTER NEXT OBJECT";
+        message.style.color = "#7dff9f";
+        message.textContent = "✓ ANSWER CONFIRMED // CONTINUE WITH " + (evidence001Step + 1) + " OF 5";
+        next.focus(); return;
+    }
+    message.style.color = "#7dff9f";
+    message.textContent = "✓ COMPLETE OBJECT SEQUENCE CONFIRMED";
+    setProgress(1);
+    document.getElementById("submitEvidenceButton001").disabled = true;
+    document.getElementById("evidenceAccepted001").style.display = "block";
+    document.getElementById("evidenceAccepted001").scrollIntoView({behavior:"smooth",block:"center"});
 }
-
 
 /* =====================================
    ENVELOPE 002
@@ -4740,30 +4616,14 @@ document
     );
 
 
-document
-    .getElementById(
-        "evidenceCode001"
-    )
-    .addEventListener(
-
-        "keydown",
-
-        function(event) {
-
-            if (
-                event.key ===
-                "Enter"
-            ) {
-
-                event.preventDefault();
-
-                submitEvidence001();
-
-            }
-
+[1, 2, 3, 4, 5].forEach(function(number) {
+    document.getElementById("evidence001Answer0" + number).addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            submitEvidence001();
         }
-
-    );
+    });
+});
 
 
 document
